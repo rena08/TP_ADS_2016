@@ -48,14 +48,27 @@
 <body>
     <form id="form1" runat="server">
         <br />
-        <div class="col-xs-2 col-xs-offset-5">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title text-center text-primary">Sala de Chat</h3>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-3  col-xs-offset-1" style="float: left">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Usuarios Conectados</h3>
+                        </div>
+                        <div class="panel-body">
+                            <asp:ListBox ID="lsbUsuariosConectados" runat="server" CssClass="form-control"></asp:ListBox>
+                        </div>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <asp:ListBox ID="lsbUsuariosConectados" runat="server"></asp:ListBox>
-                </div> 
+                <div class="col-xs-8" style="float: right">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Chat individual</h3>
+                        </div>
+                        <div class="panel-body">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </form>
