@@ -7,7 +7,8 @@ namespace SignalRPruebaChat
 {
     public class Usuario
     {
-        private string userName, conexionID, grupo,password;
+        private string userName, conexionID, grupo, password;
+        private int idUsuario;
 
         public string ConexionID
         {
@@ -32,6 +33,19 @@ namespace SignalRPruebaChat
             set
             {
                 grupo = value;
+            }
+        }
+
+        public int IdUsuario
+        {
+            get
+            {
+                return idUsuario;
+            }
+
+            set
+            {
+                idUsuario = value;
             }
         }
 

@@ -17,20 +17,41 @@
     <script src="Scripts/jquery-1.10.2.intellisense.js"></script>
     <script src="Scripts/jquery-1.10.2.js"></script>
     <script src="Scripts/jquery-1.10.2.min.js"></script>
-    <script src="Scripts/jquery.signalR-2.1.2.js"></script>
-    <script src="Scripts/jquery.signalR-2.1.2.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.0.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.0.min.js"></script>
     <script src="signalr/hubs" type="text/javascript"></script>
 
     <script type="text/javascript">
         $(function () {
+            // Declaro un proxy que hace referencia a el concentrador de mensajes. 
+            var concentradorChat = $.connection.chatHub;
+            //
+            cargarUsuarios();
+            $.connection.hub.start().done(function () {
+                inicioChat(concentradorChat)
+            });
+        })
+
+
+        function inicioChat(concentradorChat) {
             var nombre = getUrlVars()['nombre'];
+            var password = getUrlVars()['password'];
+            concentradorChat.server.conectar(nombre, password);
             var opt = document.createElement("option");
             document.getElementById("lsbUsuariosConectados").options.add(opt);
-            // Assign text and value to Option object
             opt.text = nombre;
-            opt.value = nombre;
-            //$("#<%=lsbUsuariosConectados.ClientID%>").
-        })
+            jQuery.ajax({
+                        type: 'POST',
+                        contentType: 'application/json; charset=utf-8',
+                        data: '{nombre:"' + nombre + '",password:"' + password + '"}',
+                        dataType: 'json',
+                        url: 'Sala.aspx/devolverIdUsuario',
+                        success: function (data) {
+                            opt.value = data.d;
+                        }
+                    });
+        }
+
         //Obtener valor de la variable del query string
         function getUrlVars() {
             var vars = [], hash;
@@ -41,6 +62,47 @@
                 vars[hash[0]] = hash[1];
             }
             return vars;
+        }
+
+        function metodosDelCliente(concentradorChat) {
+            // Una vez atravezado el login lo conectamos a signal R
+            concentradorChat.client.onConnected = function (id, userName, allUsers, messages) {
+                // Agregamos usuarios 
+
+                for (i = 0; i < allUsers.length; i++) {
+                    //listItems.push('<option value="' +
+                    //       allUsers[i].ConnectionId + '">' + allUsers[i].UserName
+                    //        + '</option>');
+                    //AddUser(chatHub, allUsers[i].ConnectionId, allUsers[i].UserName);
+                }
+
+            }
+        }
+
+        function cargarUsuarios() {
+             // Una vez atravezado el login lo conectamos a signal R
+            jQuery.ajax({
+                type: "POST",
+                url: "Sala.aspx/traerDatosUsuario",
+                data: "{}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    var gender = msg.d;
+                    if (gender.length > 0) {
+                        var listItems = [];
+                        for (var key in gender) {
+                            listItems.push('<option value="' +
+                            key.IdUsuario + '">' + gender[key].UserName
+                            + '</option>');
+                        }
+                        $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
+                    };
+                },
+                error: function (msg) {
+                    $("#dvAlerta > span").text("Error al llenar el combo");
+                }
+            });
         }
     </script>
 
