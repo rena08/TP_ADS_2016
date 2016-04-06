@@ -31,7 +31,6 @@ namespace SignalRPruebaChat
 
 
         // Método que me permite autenticar a un usuario que desea ingresar al chat
-
         // ARREGLAR ACAAAAAA!
         public int usuarioCorrecto(string nombre, string password)
         {
@@ -50,6 +49,22 @@ namespace SignalRPruebaChat
             return resultado;
         }
 
+        public int devolverIdUsuario(string nombre, string password)
+        {
 
+            Desconectar();
+            Conectar();
+            int resultado = 0;
+            string query = "SELECT idUsuario FROM usuario WHERE nombre='" + nombre + "' AND PWDCOMPARE( " + password + ", password)= 1";
+            comando.Parameters.Clear();
+            comando.Parameters.AddWithValue("@nombre", nombre);
+            comando = new SqlCommand(query, conexion);
+            SqlDataReader dr = comando.ExecuteReader();
+            if (dr.Read())
+            {
+                resultado = dr.GetInt32(0);
+            }
+            return resultado;
+        }
     }
 }

@@ -16,8 +16,8 @@ namespace SignalRPruebaChat
         #region Atributos
 
         static AccesoADatos acceso = new AccesoADatos();
-        static List<Usuario> listaUsuarios = new List<Usuario>();
-        static List<Mensaje> listaMensajes = new List<Mensaje>();
+        public static List<Usuario> listaUsuarios = new List<Usuario>();
+        public static List<Mensaje> listaMensajes = new List<Mensaje>();
 
         #endregion
 
@@ -33,6 +33,7 @@ namespace SignalRPruebaChat
                 usuario.ConexionID = Context.ConnectionId;
                 usuario.UserName = nombreUsuario;
                 usuario.Password = password;
+                usuario.IdUsuario = acceso.devolverIdUsuario(nombreUsuario,password);
                 listaUsuarios.Add(usuario);
 
                 //Se define que el usuario que entro se conectó
