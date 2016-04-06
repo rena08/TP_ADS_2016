@@ -17,16 +17,16 @@
     <script src="Scripts/jquery-1.10.2.intellisense.js"></script>
     <script src="Scripts/jquery-1.10.2.js"></script>
     <script src="Scripts/jquery-1.10.2.min.js"></script>
-    <script src="Scripts/jquery.signalR-2.1.2.js"></script>
-    <script src="Scripts/jquery.signalR-2.1.2.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.0.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.0.min.js"></script>
     <script src="signalr/hubs" type="text/javascript"></script>
 
     <script type="text/javascript">
-        $(function (){
+        $(function () {
             // Declaro un proxy que hace referencia a el concentrador de mensajes. 
             var concentradorChat = $.connection.chatHub;
             //
-            //metodosDelCliente(concentradorChat);
+            cargarUsuarios();
             $.connection.hub.start().done(function () {
                 inicioChat(concentradorChat)
             });
@@ -39,96 +39,70 @@
             concentradorChat.server.conectar(nombre, password);
             var opt = document.createElement("option");
             document.getElementById("lsbUsuariosConectados").options.add(opt);
-            // Assign text and value to Option object
             opt.text = nombre;
-            opt.value = nombre;
-            //$("#<%=lsbUsuariosConectados.ClientID%>").
+            jQuery.ajax({
+                        type: 'POST',
+                        contentType: 'application/json; charset=utf-8',
+                        data: '{nombre:"' + nombre + '",password:"' + password + '"}',
+                        dataType: 'json',
+                        url: 'Sala.aspx/devolverIdUsuario',
+                        success: function (data) {
+                            opt.value = data.d;
+                        }
+                    });
         }
 
-       <%--function devolverQueryString(){
-            var opt = document.createElement("option");
-            document.getElementById("lsbUsuariosConectados").options.add(opt);
-            // Assign text and value to Option object
-            opt.text = nombre;
-            opt.value = nombre;
-            //$("#<%=lsbUsuariosConectados.ClientID%>").
-        }--%>
         //Obtener valor de la variable del query string
+        function getUrlVars() {
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for (var i = 0; i < hashes.length; i++) {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        }
 
         function metodosDelCliente(concentradorChat) {
             // Una vez atravezado el login lo conectamos a signal R
             concentradorChat.client.onConnected = function (id, userName, allUsers, messages) {
-
-                //setScreen(true);
-
-                //$('#hdId').val(id);
-                //$('#hdUserName').val(userName);
-                //$('#spanUser').html(userName);
-
                 // Agregamos usuarios 
 
                 for (i = 0; i < allUsers.length; i++) {
-
-                    AddUser(chatHub, allUsers[i].ConnectionId, allUsers[i].UserName);
+                    //listItems.push('<option value="' +
+                    //       allUsers[i].ConnectionId + '">' + allUsers[i].UserName
+                    //        + '</option>');
+                    //AddUser(chatHub, allUsers[i].ConnectionId, allUsers[i].UserName);
                 }
 
-                // Add Existing Messages
-                for (i = 0; i < messages.length; i++) {
+            }
+        }
 
-                    AddMessage(messages[i].UserName, messages[i].Message);
+        function cargarUsuarios() {
+             // Una vez atravezado el login lo conectamos a signal R
+            jQuery.ajax({
+                type: "POST",
+                url: "Sala.aspx/traerDatosUsuario",
+                data: "{}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    var gender = msg.d;
+                    if (gender.length > 0) {
+                        var listItems = [];
+                        for (var key in gender) {
+                            listItems.push('<option value="' +
+                            key.IdUsuario + '">' + gender[key].UserName
+                            + '</option>');
+                        }
+                        $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
+                    };
+                },
+                error: function (msg) {
+                    $("#dvAlerta > span").text("Error al llenar el combo");
                 }
-
-
-            }
-
-            // On New User Connected
-            chatHub.client.onNewUserConnected = function (id, name) {
-                AddUser(chatHub, id, name);
-            }
-
-
-            // On User Disconnected
-            chatHub.client.onUserDisconnected = function (id, userName) {
-
-                $('#' + id).remove();
-
-                var ctrId = 'private_' + id;
-                $('#' + ctrId).remove();
-
-
-                var disc = $('<div class="disconnect">"' + userName + '" logged off.</div>');
-
-                $(disc).hide();
-                $('#divusers').prepend(disc);
-                $(disc).fadeIn(200).delay(2000).fadeOut(200);
-
-            }
-
-            chatHub.client.messageReceived = function (userName, message) {
-
-                AddMessage(userName, message);
-            }
-
-
-            chatHub.client.sendPrivateMessage = function (windowId, fromUserName, message) {
-
-                var ctrId = 'private_' + windowId;
-
-
-                if ($('#' + ctrId).length == 0) {
-
-                    createPrivateChatWindow(chatHub, windowId, ctrId, fromUserName);
-
-                }
-
-                $('#' + ctrId).find('#divMessage').append('<div class="message"><span class="userName">' + fromUserName + '</span>: ' + message + '</div>');
-
-                // set scrollbar
-                var height = $('#' + ctrId).find('#divMessage')[0].scrollHeight;
-                $('#' + ctrId).find('#divMessage').scrollTop(height);
-
-            }
-
+            });
         }
     </script>
 

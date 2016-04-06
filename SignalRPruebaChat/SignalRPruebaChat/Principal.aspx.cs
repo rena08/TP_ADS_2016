@@ -32,7 +32,8 @@ namespace SignalRPruebaChat
             int res = acceso.usuarioCorrecto(txtNombreUsuario.Value, txtPassword.Value);
             if (res==1)
             {
-                Response.Redirect("Sala.aspx?nombre ="+txtNombreUsuario.Value + "&password=" + txtPassword.Value);
+                Response.Redirect("Sala.aspx?nombre="+txtNombreUsuario.Value + "&password=" + txtPassword.Value);
+
             }
             else
             {
