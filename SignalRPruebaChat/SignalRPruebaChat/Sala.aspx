@@ -22,25 +22,113 @@
     <script src="signalr/hubs" type="text/javascript"></script>
 
     <script type="text/javascript">
-        $(function () {
+        $(function (){
+            // Declaro un proxy que hace referencia a el concentrador de mensajes. 
+            var concentradorChat = $.connection.chatHub;
+            //
+            //metodosDelCliente(concentradorChat);
+            $.connection.hub.start().done(function () {
+                inicioChat(concentradorChat)
+            });
+        })
+
+
+        function inicioChat(concentradorChat) {
             var nombre = getUrlVars()['nombre'];
+            var password = getUrlVars()['password'];
+            concentradorChat.server.conectar(nombre, password);
             var opt = document.createElement("option");
             document.getElementById("lsbUsuariosConectados").options.add(opt);
             // Assign text and value to Option object
             opt.text = nombre;
             opt.value = nombre;
             //$("#<%=lsbUsuariosConectados.ClientID%>").
-        })
+        }
+
+       <%--function devolverQueryString(){
+            var opt = document.createElement("option");
+            document.getElementById("lsbUsuariosConectados").options.add(opt);
+            // Assign text and value to Option object
+            opt.text = nombre;
+            opt.value = nombre;
+            //$("#<%=lsbUsuariosConectados.ClientID%>").
+        }--%>
         //Obtener valor de la variable del query string
-        function getUrlVars() {
-            var vars = [], hash;
-            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-            for (var i = 0; i < hashes.length; i++) {
-                hash = hashes[i].split('=');
-                vars.push(hash[0]);
-                vars[hash[0]] = hash[1];
+
+        function metodosDelCliente(concentradorChat) {
+            // Una vez atravezado el login lo conectamos a signal R
+            concentradorChat.client.onConnected = function (id, userName, allUsers, messages) {
+
+                //setScreen(true);
+
+                //$('#hdId').val(id);
+                //$('#hdUserName').val(userName);
+                //$('#spanUser').html(userName);
+
+                // Agregamos usuarios 
+
+                for (i = 0; i < allUsers.length; i++) {
+
+                    AddUser(chatHub, allUsers[i].ConnectionId, allUsers[i].UserName);
+                }
+
+                // Add Existing Messages
+                for (i = 0; i < messages.length; i++) {
+
+                    AddMessage(messages[i].UserName, messages[i].Message);
+                }
+
+
             }
-            return vars;
+
+            // On New User Connected
+            chatHub.client.onNewUserConnected = function (id, name) {
+                AddUser(chatHub, id, name);
+            }
+
+
+            // On User Disconnected
+            chatHub.client.onUserDisconnected = function (id, userName) {
+
+                $('#' + id).remove();
+
+                var ctrId = 'private_' + id;
+                $('#' + ctrId).remove();
+
+
+                var disc = $('<div class="disconnect">"' + userName + '" logged off.</div>');
+
+                $(disc).hide();
+                $('#divusers').prepend(disc);
+                $(disc).fadeIn(200).delay(2000).fadeOut(200);
+
+            }
+
+            chatHub.client.messageReceived = function (userName, message) {
+
+                AddMessage(userName, message);
+            }
+
+
+            chatHub.client.sendPrivateMessage = function (windowId, fromUserName, message) {
+
+                var ctrId = 'private_' + windowId;
+
+
+                if ($('#' + ctrId).length == 0) {
+
+                    createPrivateChatWindow(chatHub, windowId, ctrId, fromUserName);
+
+                }
+
+                $('#' + ctrId).find('#divMessage').append('<div class="message"><span class="userName">' + fromUserName + '</span>: ' + message + '</div>');
+
+                // set scrollbar
+                var height = $('#' + ctrId).find('#divMessage')[0].scrollHeight;
+                $('#' + ctrId).find('#divMessage').scrollTop(height);
+
+            }
+
         }
     </script>
 
