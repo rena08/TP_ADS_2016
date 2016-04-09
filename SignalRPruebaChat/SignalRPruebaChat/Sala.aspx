@@ -19,14 +19,14 @@
     <script src="Scripts/jquery-1.10.2.min.js"></script>
     <script src="Scripts/jquery.signalR-2.2.0.js"></script>
     <script src="Scripts/jquery.signalR-2.2.0.min.js"></script>
-    <script src="signalr/hubs" type="text/javascript"></script>
+    <script src="/signalr/hubs"></script>
 
     <script type="text/javascript">
         $(function () {
             // Declaro un proxy que hace referencia a el concentrador de mensajes. 
             var concentradorChat = $.connection.chatHub;
             //
-            cargarUsuarios();
+            metodosDelCliente(concentradorChat);
             $.connection.hub.start().done(function () {
                 inicioChat(concentradorChat)
             });
@@ -41,15 +41,15 @@
             document.getElementById("lsbUsuariosConectados").options.add(opt);
             opt.text = nombre;
             jQuery.ajax({
-                        type: 'POST',
-                        contentType: 'application/json; charset=utf-8',
-                        data: '{nombre:"' + nombre + '",password:"' + password + '"}',
-                        dataType: 'json',
-                        url: 'Sala.aspx/devolverIdUsuario',
-                        success: function (data) {
-                            opt.value = data.d;
-                        }
-                    });
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                data: '{nombre:"' + nombre + '",password:"' + password + '"}',
+                dataType: 'json',
+                url: 'Sala.aspx/devolverIdUsuario',
+                success: function (data) {
+                    opt.value = data.d;
+                }
+            });
         }
 
         //Obtener valor de la variable del query string
@@ -68,42 +68,32 @@
             // Una vez atravezado el login lo conectamos a signal R
             concentradorChat.client.onConnected = function (id, userName, allUsers, messages) {
                 // Agregamos usuarios 
-
-                for (i = 0; i < allUsers.length; i++) {
-                    //listItems.push('<option value="' +
-                    //       allUsers[i].ConnectionId + '">' + allUsers[i].UserName
-                    //        + '</option>');
+                var listItems = [];
+                if (allUsers.length > 1) {
+                    for (i = 0; i < allUsers.length - 1; i++) {
+                        listItems.push('<option>' + allUsers[i].UserName
+                                + '</option>');
+                    }
+                    $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
                     //AddUser(chatHub, allUsers[i].ConnectionId, allUsers[i].UserName);
                 }
 
             }
-        }
 
-        function cargarUsuarios() {
-             // Una vez atravezado el login lo conectamos a signal R
-            jQuery.ajax({
-                type: "POST",
-                url: "Sala.aspx/traerDatosUsuario",
-                data: "{}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (msg) {
-                    var gender = msg.d;
-                    if (gender.length > 0) {
-                        var listItems = [];
-                        for (var key in gender) {
-                            listItems.push('<option value="' +
-                            key.IdUsuario + '">' + gender[key].UserName
-                            + '</option>');
-                        }
-                        $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
-                    };
-                },
-                error: function (msg) {
-                    $("#dvAlerta > span").text("Error al llenar el combo");
-                }
-            });
+            // On New User Connected
+            concentradorChat.client.onNewUserConnected = function (id, name) {
+                var listItems = [];
+                // Agregamos usuarios conectados
+                listItems.push('<option>' + name
+                                + '</option>');
+                $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
+
+            }
         }
+       
+
+
+
     </script>
 
 </head>
