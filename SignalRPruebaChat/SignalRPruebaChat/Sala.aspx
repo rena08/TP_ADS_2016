@@ -71,7 +71,7 @@
                 var listItems = [];
                 if (allUsers.length > 1) {
                     for (i = 0; i < allUsers.length - 1; i++) {
-                        listItems.push('<option value=' + allUsers[i].IdUsuario + '>' + allUsers[i].UserName
+                        listItems.push('<option>' + allUsers[i].UserName
                                 + '</option>');
                     }   
                     $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
@@ -84,7 +84,7 @@
             concentradorChat.client.onNewUserConnected = function (id, name) {
                 var listItems = [];
                 // Agregamos usuarios conectados
-                listItems.push('<option value=' + ultimoCliente.IdUsuario + '>' + name
+                listItems.push('<option>' + name
                                 + '</option>');
                 $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
 
