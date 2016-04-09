@@ -30,6 +30,7 @@
             $.connection.hub.start().done(function () {
                 inicioChat(concentradorChat)
             });
+            
         })
 
 
@@ -52,6 +53,26 @@
             });
         }
 
+
+        //Doble click en el list box
+        $(function dobleClickLsb() {
+            var x;
+            x = $("#lsbUsuariosConectados");
+            x.dblclick($(x.options.select()).bind("dblclick", function () {
+                alert($(this).select().text());
+                //var name = $("[#lsbUsuariosConectados] option:selected")
+                //alert(var options = $("");)
+            }));
+            
+        });
+
+        //$(function () {
+        //    $("#lsbUsuariosConectados").bind("dblclick", function () {
+        //        alert($(this).select.text());
+        //    });
+        //});
+
+
         //Obtener valor de la variable del query string
         function getUrlVars() {
             var vars = [], hash;
@@ -71,25 +92,33 @@
                 var listItems = [];
                 if (allUsers.length > 1) {
                     for (i = 0; i < allUsers.length - 1; i++) {
-                        listItems.push('<option>' + allUsers[i].UserName
-                                + '</option>');
-                    }   
-                    $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
+                        listItems.push('<option>' + allUsers[i].UserName + '</option>');
+                    }
+
+                    //Borrar duplicados en lista de usuarios conectados
+                        var arraySinDuplicados = [];
+                        $.each(listItems, function(i, elem){
+                        if($.inArray(elem, arraySinDuplicados) === -1) arraySinDuplicados.push(elem);
+                        });
+
+                    $("#<%=lsbUsuariosConectados.ClientID%>").append(arraySinDuplicados.join(''));
+                    //$("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
                     //AddUser(chatHub, allUsers[i].ConnectionId, allUsers[i].UserName);
                 }
-
             }
 
             // Cuando se agrega un usuario conectado se va a todas las paginas conectadas
             concentradorChat.client.onNewUserConnected = function (id, name) {
                 var listItems = [];
                 // Agregamos usuarios conectados
-                listItems.push('<option>' + name
-                                + '</option>');
+                listItems.push('<option>' + name + '</option>');
+
                 $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
 
             }
         }
+
+
        
 
 

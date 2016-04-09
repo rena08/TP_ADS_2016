@@ -34,5 +34,7 @@ namespace SignalRPruebaChat.Fomrularios
             int i = ConexionSignalR.listaUsuarios.Count;
             return ConexionSignalR.listaUsuarios;
         }
+
+
     }
 }
