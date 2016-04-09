@@ -71,20 +71,20 @@
                 var listItems = [];
                 if (allUsers.length > 1) {
                     for (i = 0; i < allUsers.length - 1; i++) {
-                        listItems.push('<option>' + allUsers[i].UserName
+                        listItems.push('<option value=' + allUsers[i].IdUsuario + '>' + allUsers[i].UserName
                                 + '</option>');
-                    }
+                    }   
                     $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
                     //AddUser(chatHub, allUsers[i].ConnectionId, allUsers[i].UserName);
                 }
 
             }
 
-            // On New User Connected
+            // Cuando se agrega un usuario conectado se va a todas las paginas conectadas
             concentradorChat.client.onNewUserConnected = function (id, name) {
                 var listItems = [];
                 // Agregamos usuarios conectados
-                listItems.push('<option>' + name
+                listItems.push('<option value=' + ultimoCliente.IdUsuario + '>' + name
                                 + '</option>');
                 $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
 
