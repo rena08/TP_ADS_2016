@@ -92,7 +92,8 @@
                 var listItems = [];
                 if (allUsers.length > 1) {
                     for (i = 0; i < allUsers.length - 1; i++) {
-                        listItems.push('<option>' + allUsers[i].UserName + '</option>');
+                        listItems.push('<option value=' + allUsers[i].IdUsuario + '>' + allUsers[i].UserName + '</option>');
+                      
                     }
 
                     //Borrar duplicados en lista de usuarios conectados
@@ -108,11 +109,11 @@
             }
 
             // Cuando se agrega un usuario conectado se va a todas las paginas conectadas
-            concentradorChat.client.onNewUserConnected = function (id, name) {
+            concentradorChat.client.onNewUserConnected = function (id, name, listaUsuarios) {
                 var listItems = [];
                 // Agregamos usuarios conectados
-                listItems.push('<option>' + name + '</option>');
-
+                listItems.push('<option value=' + listaUsuarios[listaUsuarios.length-1].IdUsuario + '>' + name + '</option>');
+                alert(listaUsuarios[listaUsuarios.length - 1].IdUsuario);
                 $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
 
             }

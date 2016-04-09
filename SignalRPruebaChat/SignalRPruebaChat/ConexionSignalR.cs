@@ -40,7 +40,7 @@ namespace SignalRPruebaChat
                 Clients.Caller.onConnected(Context.ConnectionId, nombreUsuario, listaUsuarios, listaMensajes);
                 
                 // Envio a todos los usuario que me conecté pero no ami!
-                Clients.AllExcept(Context.ConnectionId).onNewUserConnected(Context.ConnectionId, nombreUsuario);
+                Clients.AllExcept(Context.ConnectionId).onNewUserConnected(Context.ConnectionId, nombreUsuario,listaUsuarios);
 
             }
         }
