@@ -58,7 +58,7 @@
         $(function dobleClickLsb() {
             var x;
             x = $("#lsbUsuariosConectados");
-            x.dblclick($(x.options.select()).bind("dblclick", function () {
+            x.dblclick($(x).bind("dblclick", function () {
                 alert($(this).select().text());
                 //var name = $("[#lsbUsuariosConectados] option:selected")
                 //alert(var options = $("");)
