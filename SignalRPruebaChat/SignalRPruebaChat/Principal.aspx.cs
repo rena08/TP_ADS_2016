@@ -32,7 +32,12 @@ namespace SignalRPruebaChat
             int res = acceso.usuarioCorrecto(txtNombreUsuario.Value, txtPassword.Value);
             if (res==1)
             {
-                Response.Redirect("Sala.aspx?nombre="+txtNombreUsuario.Value + "&password=" + txtPassword.Value);
+                TSHAK.Components.SecureQueryString querystring;
+                byte[] b = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 8 };
+                querystring = new TSHAK.Components.SecureQueryString(b) ;
+                querystring["nombre"] = txtNombreUsuario.Value;
+                querystring["password"] = txtPassword.Value;
+                Response.Redirect("Sala.aspx?data=" + HttpUtility.UrlEncode(querystring.ToString()));
 
             }
             else

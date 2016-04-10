@@ -25,7 +25,6 @@
         $(function () {
             // Declaro un proxy que hace referencia a el concentrador de mensajes. 
             var concentradorChat = $.connection.chatHub;
-            //
             metodosDelCliente(concentradorChat);
             $.connection.hub.start().done(function () {
                 inicioChat(concentradorChat)
@@ -35,8 +34,10 @@
 
 
         function inicioChat(concentradorChat) {
-            var nombre = getUrlVars()['nombre'];
-            var password = getUrlVars()['password'];
+            //var nombre = getUrlVars()['nombre'];
+            //var password = getUrlVars()['password'];
+            var nombre = txtNombreUsuario.value;
+            var password = txtPassword.value;
             concentradorChat.server.conectar(nombre, password);
             var opt = document.createElement("option");
             document.getElementById("lsbUsuariosConectados").options.add(opt);
@@ -74,16 +75,16 @@
 
 
         //Obtener valor de la variable del query string
-        function getUrlVars() {
-            var vars = [], hash;
-            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-            for (var i = 0; i < hashes.length; i++) {
-                hash = hashes[i].split('=');
-                vars.push(hash[0]);
-                vars[hash[0]] = hash[1];
-            }
-            return vars;
-        }
+        //function getUrlVars() {
+        //    var vars = [], hash;
+        //    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        //    for (var i = 0; i < hashes.length; i++) {
+        //        hash = hashes[i].split('=');
+        //        vars.push(hash[0]);
+        //        vars[hash[0]] = hash[1];
+        //    }
+        //    return vars;
+        //}
 
         function metodosDelCliente(concentradorChat) {
             // Una vez atravezado el login lo conectamos a signal R
@@ -93,7 +94,8 @@
                 if (allUsers.length > 1) {
                     for (i = 0; i < allUsers.length - 1; i++) {
                         listItems.push('<option value=' + allUsers[i].IdUsuario + '>' + allUsers[i].UserName + '</option>');
-                      
+                        // alert utilizado para verificar que los id's se han cargado correctamente
+                        //alert('User name= ' + allUsers[i].UserName + ' , id=' + allUsers[i].IdUsuario );
                     }
 
                     //Borrar duplicados en lista de usuarios conectados
@@ -113,17 +115,62 @@
                 var listItems = [];
                 // Agregamos usuarios conectados
                 listItems.push('<option value=' + listaUsuarios[listaUsuarios.length-1].IdUsuario + '>' + name + '</option>');
-                alert(listaUsuarios[listaUsuarios.length - 1].IdUsuario);
                 $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
 
             }
+
+            //Cuando el usuario recibe un nuevo mensaje
+            concentradorChat.client.messageReceived = function (userName, message) {
+                agregarMensaje(userName, message);
+            }
+
         }
 
 
-       
+        function agregarMensaje(userName, message) {
+            alert("Mensaje recibido: " + message + "de: " + userName);
+            $("#txtMensajes").append(message);
+            //var height = $('#txtMensajes')[0].scrollHeight;
+            //$('#txtMensajes').scrollTop(height);
+        }
 
 
+        function mensajePrivado(concentradorChat) {
 
+            $('#lsbUsuariosConectados').dblclick(function () {
+
+                var idUsuarioAEnviar = $("#lsbUsuariosConectados").val();
+                var nombreUsuarioAEnviar = $("#lsbUsuariosConectados option:selected").text();
+
+                var nombreUsuario = getUrlVars()['nombre'];
+
+                if (nombreUsuarioAEnviar != nombreUsuario) {
+                    crearVentanaChat(concentradorChat, nombreUsuario, idUsuarioAEnviar, nombreUsuarioAEnviar)
+                }
+
+            });
+        }
+
+
+        function crearVentanaChat(concentradorChat, nombreUsuario, idUsuarioEnviar, nombreUsuarioEnviar) {
+
+            document.getElementById('lblUsuarioDestino').innerHTML = nombreUsuarioEnviar;
+
+            // Evento enviar mensaje
+            $("#btnEnviarMensaje").click(function () {
+
+                $textBox = $("#txtMensajeAEnviar");
+                var msg = $textBox.val();
+                if (msg.length > 0) {
+
+                    concentradorChat.server.envioDeMensaje(idUsuarioEnviar, msg);
+
+                    $textBox.val('');
+                } else {
+                    alert("Escribir mensaje a enviar");
+                }
+            });
+        }
     </script>
 
 </head>
@@ -145,14 +192,23 @@
                 <div class="col-xs-8" style="float: right">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Chat individual</h3>
+                            <h3 class="panel-title">Chat individual con:&nbsp;&nbsp;</h3>
                         </div>
                         <div class="panel-body">
+                            <asp:TextBox ID="txtMensajes" runat="server" Height="119px" Width="200px"></asp:TextBox>
+                            <br />
+                            <br />
+                            <asp:TextBox ID="txtMensajeAEnviar" runat="server" Width="200px"></asp:TextBox>
+                            &nbsp;<asp:Button ID="btnEnviarMensaje" CssClass="btn" runat="server" Text="Enviar" OnClientClick="return false;"/>
+                            &nbsp;&nbsp;
+                            <br />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <input id="txtNombreUsuario" type="hidden" runat="server" />
+        <input id="txtPassword" type="hidden" runat="server" />
     </form>
 </body>
 </html>
