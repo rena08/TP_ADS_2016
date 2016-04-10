@@ -100,8 +100,6 @@
                 $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
             }
 
-            
-
             //Cuando el usuario envia un mensaje privado
             concentradorChat.client.sendPrivateMessage = function (windowId, fromUserName, message) {
                 mensajePrivado(concentradorChat);
