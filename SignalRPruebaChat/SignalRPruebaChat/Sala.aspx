@@ -35,8 +35,10 @@
 
 
         function inicioChat(concentradorChat) {
-            var nombre = getUrlVars()['nombre'];
-            var password = getUrlVars()['password'];
+            //var nombre = getUrlVars()['nombre'];
+            //var password = getUrlVars()['password'];
+            var nombre = txtNombreUsuario.value;
+            var password = txtPassword.value;
             concentradorChat.server.conectar(nombre, password);
             var opt = document.createElement("option");
             document.getElementById("lsbUsuariosConectados").options.add(opt);
@@ -74,16 +76,16 @@
 
 
         //Obtener valor de la variable del query string
-        function getUrlVars() {
-            var vars = [], hash;
-            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-            for (var i = 0; i < hashes.length; i++) {
-                hash = hashes[i].split('=');
-                vars.push(hash[0]);
-                vars[hash[0]] = hash[1];
-            }
-            return vars;
-        }
+        //function getUrlVars() {
+        //    var vars = [], hash;
+        //    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        //    for (var i = 0; i < hashes.length; i++) {
+        //        hash = hashes[i].split('=');
+        //        vars.push(hash[0]);
+        //        vars[hash[0]] = hash[1];
+        //    }
+        //    return vars;
+        //}
 
         function metodosDelCliente(concentradorChat) {
             // Una vez atravezado el login lo conectamos a signal R
@@ -93,7 +95,8 @@
                 if (allUsers.length > 1) {
                     for (i = 0; i < allUsers.length - 1; i++) {
                         listItems.push('<option value=' + allUsers[i].IdUsuario + '>' + allUsers[i].UserName + '</option>');
-                      
+                        // alert utilizado para verificar que los id's se han cargado correctamente
+                        //alert('User name= ' + allUsers[i].UserName + ' , id=' + allUsers[i].IdUsuario );
                     }
 
                     //Borrar duplicados en lista de usuarios conectados
@@ -113,7 +116,6 @@
                 var listItems = [];
                 // Agregamos usuarios conectados
                 listItems.push('<option value=' + listaUsuarios[listaUsuarios.length-1].IdUsuario + '>' + name + '</option>');
-                alert(listaUsuarios[listaUsuarios.length - 1].IdUsuario);
                 $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
 
             }
@@ -153,6 +155,8 @@
                 </div>
             </div>
         </div>
+        <input id="txtNombreUsuario" type="hidden" runat="server" />
+        <input id="txtPassword" type="hidden" runat="server" />
     </form>
 </body>
 </html>
