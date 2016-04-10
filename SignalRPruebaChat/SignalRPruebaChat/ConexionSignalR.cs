@@ -8,6 +8,7 @@ using SignalRPruebaChat;
 using System.Web.Services;
 using System.Web.Script.Services;
 
+
 namespace SignalRPruebaChat
 {
     [HubName("chatHub")]
@@ -38,19 +39,30 @@ namespace SignalRPruebaChat
 
                 //Se define que el usuario que entro se conectó
                 Clients.Caller.onConnected(Context.ConnectionId, nombreUsuario, listaUsuarios, listaMensajes);
-                
+
                 // Envio a todos los usuario que me conecté pero no ami!
-                Clients.AllExcept(Context.ConnectionId).onNewUserConnected(Context.ConnectionId, nombreUsuario);
+                Clients.AllExcept(Context.ConnectionId).onNewUserConnected(Context.ConnectionId, nombreUsuario, listaUsuarios);
 
             }
         }
 
-        public void envioDeMensaje(string usuarioDestino, string mensaje)
+        public void envioDeMensaje(int idUsuarioDestino, string mensaje)
         {
             string usuarioOrigen = Context.ConnectionId;
+            string usuarioDestino = "";
+            foreach (var usuarios in listaUsuarios)
+            {
+                if (idUsuarioDestino == usuarios.IdUsuario)
+                {
+                    usuarioDestino = usuarios.ConexionID;
+                    break;
+                }
+            }
 
             Usuario destino = listaUsuarios.FirstOrDefault(x => x.ConexionID == usuarioDestino);
             Usuario origen = listaUsuarios.FirstOrDefault(x => x.ConexionID == usuarioOrigen);
+
+            
 
             if (origen != null && destino != null)
             {
@@ -62,6 +74,21 @@ namespace SignalRPruebaChat
             }
 
         }
+
+        //public override System.Threading.Tasks.Task OnDisconnected()
+        //{
+        //    var item = listaUsuarios.FirstOrDefault(x => x.ConexionID == Context.ConnectionId);
+        //    if (item != null)
+        //    {
+        //        listaUsuarios.Remove(item);
+
+        //        var id = Context.ConnectionId;
+        //        Clients.All.onUserDisconnected(id, item.UserName);
+
+        //    }
+
+        //    return base.OnDisconnected();
+        //}
 
         #endregion
 

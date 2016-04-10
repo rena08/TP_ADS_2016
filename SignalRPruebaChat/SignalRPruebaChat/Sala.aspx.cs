@@ -35,6 +35,6 @@ namespace SignalRPruebaChat.Fomrularios
             return ConexionSignalR.listaUsuarios;
         }
 
-
+ 
     }
 }

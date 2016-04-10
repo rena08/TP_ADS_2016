@@ -245,6 +245,6 @@ C:\Users\Santiago\Desktop\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Mi
 C:\Users\Santiago\Desktop\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Microsoft.Owin.Host.SystemWeb.xml
 C:\Users\Santiago\Desktop\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Microsoft.Owin.Security.xml
 C:\Users\Santiago\Desktop\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Newtonsoft.Json.xml
-C:\Users\Santiago\Desktop\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\obj\Debug\SignalRPruebaChat.csprojResolveAssemblyReference.cache
 C:\Users\Santiago\Desktop\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\obj\Debug\SignalRPruebaChat.dll
 C:\Users\Santiago\Desktop\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\obj\Debug\SignalRPruebaChat.pdb
+C:\Users\Santiago\Desktop\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\obj\Debug\SignalRPruebaChat.csprojResolveAssemblyReference.cache

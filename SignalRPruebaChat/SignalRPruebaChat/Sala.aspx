@@ -25,12 +25,14 @@
         $(function () {
             // Declaro un proxy que hace referencia a el concentrador de mensajes. 
             var concentradorChat = $.connection.chatHub;
-            //
+
+
             metodosDelCliente(concentradorChat);
+
             $.connection.hub.start().done(function () {
                 inicioChat(concentradorChat)
             });
-            
+
         })
 
 
@@ -53,26 +55,6 @@
             });
         }
 
-
-        //Doble click en el list box
-        $(function dobleClickLsb() {
-            var x;
-            x = $("#lsbUsuariosConectados");
-            x.dblclick($(x).bind("dblclick", function () {
-                alert($(this).select().text());
-                //var name = $("[#lsbUsuariosConectados] option:selected")
-                //alert(var options = $("");)
-            }));
-            
-        });
-
-        //$(function () {
-        //    $("#lsbUsuariosConectados").bind("dblclick", function () {
-        //        alert($(this).select.text());
-        //    });
-        //});
-
-
         //Obtener valor de la variable del query string
         function getUrlVars() {
             var vars = [], hash;
@@ -92,7 +74,7 @@
                 var listItems = [];
                 if (allUsers.length > 1) {
                     for (i = 0; i < allUsers.length - 1; i++) {
-                        listItems.push('<option>' + allUsers[i].UserName + '</option>');
+                        listItems.push('<option value=' + allUsers[i].IdUsuario + '>' + allUsers[i].UserName + '</option>');
                     }
 
                     //Borrar duplicados en lista de usuarios conectados
@@ -103,25 +85,77 @@
 
                     $("#<%=lsbUsuariosConectados.ClientID%>").append(arraySinDuplicados.join(''));
                     //$("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
+                   
                     //AddUser(chatHub, allUsers[i].ConnectionId, allUsers[i].UserName);
                 }
             }
 
             // Cuando se agrega un usuario conectado se va a todas las paginas conectadas
-            concentradorChat.client.onNewUserConnected = function (id, name) {
+            concentradorChat.client.onNewUserConnected = function (id, name, listaUsuarios) {
                 var listItems = [];
                 // Agregamos usuarios conectados
-                listItems.push('<option>' + name + '</option>');
+                listItems.push('<option value=' + listaUsuarios[listaUsuarios.length - 1].IdUsuario + '>' + name + '</option>');
+                //alert(listaUsuarios[listaUsuarios.length - 1].IdUsuario);
 
                 $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
-
             }
+
+            
+
+            //Cuando el usuario envia un mensaje privado
+            concentradorChat.client.sendPrivateMessage = function (windowId, fromUserName, message) {
+                mensajePrivado(concentradorChat);
+            }
+
+            //Cuando el usuario recibe un nuevo mensaje
+            concentradorChat.client.messageReceived = function (userName, message) {
+                agregarMensaje(userName, message);
+            }
+
         }
 
+        function agregarMensaje(userName, message) {
+            alert("Mensaje recibido: " + message + "de: " + userName);
+            $("#txtMensajes").append(message);
+            //var height = $('#txtMensajes')[0].scrollHeight;
+            //$('#txtMensajes').scrollTop(height);
+        }
 
-       
+        function mensajePrivado(concentradorChat) {
 
+            $('#lsbUsuariosConectados').dblclick(function () {
 
+                var idUsuarioAEnviar = $("#lsbUsuariosConectados").val();
+                var nombreUsuarioAEnviar = $("#lsbUsuariosConectados option:selected").text();
+
+                var nombreUsuario = getUrlVars()['nombre'];
+
+                if (nombreUsuarioAEnviar != nombreUsuario) {
+                    crearVentanaChat(concentradorChat, nombreUsuario, idUsuarioAEnviar, nombreUsuarioAEnviar)
+                }
+
+            });
+        }
+
+        function crearVentanaChat(concentradorChat, nombreUsuario, idUsuarioEnviar, nombreUsuarioEnviar) {
+
+            document.getElementById('lblUsuarioDestino').innerHTML = nombreUsuarioEnviar;
+
+            // Evento enviar mensaje
+            $("#btnEnviarMensaje").click(function () {
+
+                $textBox = $("#txtMensajeAEnviar");
+                var msg = $textBox.val();
+                if (msg.length > 0) {
+
+                    concentradorChat.server.envioDeMensaje(idUsuarioEnviar, msg);
+
+                    $textBox.val('');
+                } else {
+                    alert("Escribir mensaje a enviar");
+                }
+            });
+        }
 
     </script>
 
@@ -141,12 +175,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-8" style="float: right">
+
+                <div id="divChatIndividual" class="col-xs-8" style="float: right; top: 0px; left: 2px;">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Chat individual</h3>
+                            <h3 class="panel-title">Chat individual con:&nbsp;&nbsp;<asp:Label ID="lblUsuarioDestino" CssClass="h4" runat="server" Text="[usuarioDestino]" Width="142px"></asp:Label>
+                            </h3>
                         </div>
                         <div class="panel-body">
+                            <asp:TextBox ID="txtMensajes" runat="server" Height="119px" Width="200px"></asp:TextBox>
+                            <br />
+                            <br />
+                            <asp:TextBox ID="txtMensajeAEnviar" runat="server" Width="200px"></asp:TextBox>
+                            &nbsp;<asp:Button ID="btnEnviarMensaje" CssClass="btn" runat="server" Text="Enviar" OnClientClick="return false;"/>
+                            &nbsp;&nbsp;
+                            <br />
                         </div>
                     </div>
                 </div>
