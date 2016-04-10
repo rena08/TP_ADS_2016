@@ -25,7 +25,6 @@
         $(function () {
             // Declaro un proxy que hace referencia a el concentrador de mensajes. 
             var concentradorChat = $.connection.chatHub;
-            //
             metodosDelCliente(concentradorChat);
             $.connection.hub.start().done(function () {
                 inicioChat(concentradorChat)
@@ -119,13 +118,59 @@
                 $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
 
             }
+
+            //Cuando el usuario recibe un nuevo mensaje
+            concentradorChat.client.messageReceived = function (userName, message) {
+                agregarMensaje(userName, message);
+            }
+
         }
 
 
-       
+        function agregarMensaje(userName, message) {
+            alert("Mensaje recibido: " + message + "de: " + userName);
+            $("#txtMensajes").append(message);
+            //var height = $('#txtMensajes')[0].scrollHeight;
+            //$('#txtMensajes').scrollTop(height);
+        }
 
 
+        function mensajePrivado(concentradorChat) {
 
+            $('#lsbUsuariosConectados').dblclick(function () {
+
+                var idUsuarioAEnviar = $("#lsbUsuariosConectados").val();
+                var nombreUsuarioAEnviar = $("#lsbUsuariosConectados option:selected").text();
+
+                var nombreUsuario = getUrlVars()['nombre'];
+
+                if (nombreUsuarioAEnviar != nombreUsuario) {
+                    crearVentanaChat(concentradorChat, nombreUsuario, idUsuarioAEnviar, nombreUsuarioAEnviar)
+                }
+
+            });
+        }
+
+
+        function crearVentanaChat(concentradorChat, nombreUsuario, idUsuarioEnviar, nombreUsuarioEnviar) {
+
+            document.getElementById('lblUsuarioDestino').innerHTML = nombreUsuarioEnviar;
+
+            // Evento enviar mensaje
+            $("#btnEnviarMensaje").click(function () {
+
+                $textBox = $("#txtMensajeAEnviar");
+                var msg = $textBox.val();
+                if (msg.length > 0) {
+
+                    concentradorChat.server.envioDeMensaje(idUsuarioEnviar, msg);
+
+                    $textBox.val('');
+                } else {
+                    alert("Escribir mensaje a enviar");
+                }
+            });
+        }
     </script>
 
 </head>
@@ -147,9 +192,16 @@
                 <div class="col-xs-8" style="float: right">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Chat individual</h3>
+                            <h3 class="panel-title">Chat individual con:&nbsp;&nbsp;</h3>
                         </div>
                         <div class="panel-body">
+                            <asp:TextBox ID="txtMensajes" runat="server" Height="119px" Width="200px"></asp:TextBox>
+                            <br />
+                            <br />
+                            <asp:TextBox ID="txtMensajeAEnviar" runat="server" Width="200px"></asp:TextBox>
+                            &nbsp;<asp:Button ID="btnEnviarMensaje" CssClass="btn" runat="server" Text="Enviar" OnClientClick="return false;"/>
+                            &nbsp;&nbsp;
+                            <br />
                         </div>
                     </div>
                 </div>
