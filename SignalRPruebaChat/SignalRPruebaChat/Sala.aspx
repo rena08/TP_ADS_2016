@@ -26,9 +26,12 @@
             // Declaro un proxy que hace referencia a el concentrador de mensajes. 
             var concentradorChat = $.connection.chatHub;
             metodosDelCliente(concentradorChat);
+
             $.connection.hub.start().done(function () {
                 inicioChat(concentradorChat)
             });
+
+            mensajePrivado(concentradorChat);
             
         })
 
@@ -56,16 +59,16 @@
 
 
         //Doble click en el list box
-        $(function dobleClickLsb() {
-            var x;
-            x = $("#lsbUsuariosConectados");
-            x.dblclick($(x.options.select()).bind("dblclick", function () {
-                alert($(this).select().text());
-                //var name = $("[#lsbUsuariosConectados] option:selected")
-                //alert(var options = $("");)
-            }));
+        //$(function dobleClickLsb() {
+        //    var x;
+        //    x = $("#lsbUsuariosConectados");
+        //    x.dblclick($(x.options.select()).bind("dblclick", function () {
+        //        alert($(this).select().text());
+        //        //var name = $("[#lsbUsuariosConectados] option:selected")
+        //        //alert(var options = $("");)
+        //    }));
             
-        });
+        //});
 
         //$(function () {
         //    $("#lsbUsuariosConectados").bind("dblclick", function () {
@@ -108,6 +111,13 @@
                     //$("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
                     //AddUser(chatHub, allUsers[i].ConnectionId, allUsers[i].UserName);
                 }
+
+                //Agregar todos los mensajes
+                for (var i = 0; i < messages.length; i++) {
+                    agregarMensaje(messages[i].UserName, messages[i].Message);
+                }
+
+
             }
 
             // Cuando se agrega un usuario conectado se va a todas las paginas conectadas
@@ -141,13 +151,12 @@
 
                 var idUsuarioAEnviar = $("#lsbUsuariosConectados").val();
                 var nombreUsuarioAEnviar = $("#lsbUsuariosConectados option:selected").text();
+                var nombreUsuario = txtNombreUsuario.value;;
 
-                var nombreUsuario = getUrlVars()['nombre'];
 
                 if (nombreUsuarioAEnviar != nombreUsuario) {
                     crearVentanaChat(concentradorChat, nombreUsuario, idUsuarioAEnviar, nombreUsuarioAEnviar)
                 }
-
             });
         }
 
@@ -192,7 +201,8 @@
                 <div class="col-xs-8" style="float: right">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Chat individual con:&nbsp;&nbsp;</h3>
+                            <h3 class="panel-title">Chat individual con:&nbsp;&nbsp;<asp:Label ID="lblUsuarioDestino" runat="server" Text="[usuarioAEnviar]"></asp:Label>
+                            </h3>
                         </div>
                         <div class="panel-body">
                             <asp:TextBox ID="txtMensajes" runat="server" Height="119px" Width="200px"></asp:TextBox>
