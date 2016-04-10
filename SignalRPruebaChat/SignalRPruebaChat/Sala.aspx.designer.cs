@@ -31,6 +31,15 @@ namespace SignalRPruebaChat.Fomrularios {
         protected global::System.Web.UI.WebControls.ListBox lsbUsuariosConectados;
         
         /// <summary>
+        /// lblUsuarioDestino control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUsuarioDestino;
+        
+        /// <summary>
         /// txtMensajes control.
         /// </summary>
         /// <remarks>
