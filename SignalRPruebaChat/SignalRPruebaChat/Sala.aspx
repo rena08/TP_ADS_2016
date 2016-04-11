@@ -23,6 +23,9 @@
 
     <script type="text/javascript">
         $(function () {
+
+            document.getElementById("lblUsuarioReg").innerHTML = txtNombreUsuario.value;
+
             // Declaro un proxy que hace referencia a el concentrador de mensajes. 
             var concentradorChat = $.connection.chatHub;
             metodosDelCliente(concentradorChat);
@@ -31,8 +34,6 @@
                 inicioChat(concentradorChat)
             });
 
-            mensajePrivado(concentradorChat);
-            
         })
 
 
@@ -94,11 +95,20 @@
             concentradorChat.client.onConnected = function (id, userName, allUsers, messages) {
                 // Agregamos usuarios 
                 var listItems = [];
+                var nombreUsuario = txtNombreUsuario.value;
+                
+
                 if (allUsers.length > 1) {
                     for (i = 0; i < allUsers.length - 1; i++) {
-                        listItems.push('<option value=' + allUsers[i].IdUsuario + '>' + allUsers[i].UserName + '</option>');
-                        // alert utilizado para verificar que los id's se han cargado correctamente
+                        if (nombreUsuario != allUsers[i].UserName) {
+                            listItems.push('<option value=' + allUsers[i].IdUsuario + '>' + allUsers[i].UserName + '</option>');
+                        }
+                        //alert utilizado para verificar que los id's se han cargado correctamente
                         //alert('User name= ' + allUsers[i].UserName + ' , id=' + allUsers[i].IdUsuario );
+                        var nombreUsuario = txtNombreUsuario.value;
+                        if (nombreUsuario != allUsers[i].UserName) {
+                            mensajePrivado(concentradorChat);
+                        }
                     }
 
                     //Borrar duplicados en lista de usuarios conectados
@@ -117,16 +127,27 @@
                     agregarMensaje(messages[i].UserName, messages[i].Message);
                 }
 
-
             }
 
             // Cuando se agrega un usuario conectado se va a todas las paginas conectadas
             concentradorChat.client.onNewUserConnected = function (id, name, listaUsuarios) {
                 var listItems = [];
+                var sel = document.getElementById("lsbUsuariosConectados");
+                var flagExiste = false;
                 // Agregamos usuarios conectados
-                listItems.push('<option value=' + listaUsuarios[listaUsuarios.length-1].IdUsuario + '>' + name + '</option>');
-                $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
+                for (var i = 0; i < sel.length; i++) {
+                    //  Aca haces referencia al "option" actual
+                    var opt = sel[i];
+                    if (name == opt.text) {
+                        flagExiste = true;
+                    }
+                }
 
+                if (flagExiste == false) {
+                    listItems.push('<option value=' + listaUsuarios[listaUsuarios.length - 1].IdUsuario + '>' + name + '</option>');
+                }
+                
+               $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
             }
 
             //Cuando el usuario recibe un nuevo mensaje
@@ -151,7 +172,7 @@
 
                 var idUsuarioAEnviar = $("#lsbUsuariosConectados").val();
                 var nombreUsuarioAEnviar = $("#lsbUsuariosConectados option:selected").text();
-                var nombreUsuario = txtNombreUsuario.value;;
+                var nombreUsuario = txtNombreUsuario.value;
 
 
                 if (nombreUsuarioAEnviar != nombreUsuario) {
@@ -191,6 +212,9 @@
                 <div class="col-xs-3  col-xs-offset-1" style="float: left">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
+                            <h3 class="panel-title">BIENVENIDO Sr/a:&nbsp;<asp:Label ID="lblUsuarioReg" runat="server" Text="[usuarioRegistrado]"></asp:Label>
+                            </h3>
+                            <p class="panel-title">&nbsp;</p>
                             <h3 class="panel-title">Usuarios Conectados</h3>
                         </div>
                         <div class="panel-body">
@@ -198,19 +222,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-8" style="float: right">
+                <div class="col-xs-3 col-xs-offset-1"  style="float: right; top: 0px; left: 0px; margin-right: 378px;">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Chat individual con:&nbsp;&nbsp;<asp:Label ID="lblUsuarioDestino" runat="server" Text="[usuarioAEnviar]"></asp:Label>
+                            <h3 class="panel-title">Chat individual: &nbsp;&nbsp;<asp:Label ID="lblUsuarioDestino" runat="server" Text="[usuarAEnviar]"></asp:Label>
                             </h3>
                         </div>
                         <div class="panel-body">
-                            <asp:TextBox ID="txtMensajes" runat="server" Height="119px" Width="200px"></asp:TextBox>
+                            <asp:TextBox ID="txtMensajes" runat="server" Height="119px" Width="235px"></asp:TextBox>
                             <br />
                             <br />
-                            <asp:TextBox ID="txtMensajeAEnviar" runat="server" Width="200px"></asp:TextBox>
-                            &nbsp;<asp:Button ID="btnEnviarMensaje" CssClass="btn" runat="server" Text="Enviar" OnClientClick="return false;"/>
-                            &nbsp;&nbsp;
+                            <asp:TextBox ID="txtMensajeAEnviar" runat="server" Width="139px"></asp:TextBox>
+                            &nbsp;&nbsp;&nbsp;&nbsp; <asp:Button ID="btnEnviarMensaje" CssClass="btn-primary" runat="server" Text="Enviar" OnClientClick="return false;"/>
                             <br />
                         </div>
                     </div>
