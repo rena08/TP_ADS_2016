@@ -95,16 +95,20 @@
             concentradorChat.client.onConnected = function (id, userName, allUsers, messages) {
                 // Agregamos usuarios 
                 var listItems = [];
+                var nombreUsuario = txtNombreUsuario.value;
+                
+
                 if (allUsers.length > 1) {
                     for (i = 0; i < allUsers.length - 1; i++) {
-                        listItems.push('<option value=' + allUsers[i].IdUsuario + '>' + allUsers[i].UserName + '</option>');
+                        if (nombreUsuario != allUsers[i].UserName) {
+                            listItems.push('<option value=' + allUsers[i].IdUsuario + '>' + allUsers[i].UserName + '</option>');
+                        }
                         //alert utilizado para verificar que los id's se han cargado correctamente
                         //alert('User name= ' + allUsers[i].UserName + ' , id=' + allUsers[i].IdUsuario );
                         var nombreUsuario = txtNombreUsuario.value;
                         if (nombreUsuario != allUsers[i].UserName) {
                             mensajePrivado(concentradorChat);
                         }
-
                     }
 
                     //Borrar duplicados en lista de usuarios conectados
@@ -123,16 +127,27 @@
                     agregarMensaje(messages[i].UserName, messages[i].Message);
                 }
 
-
             }
 
             // Cuando se agrega un usuario conectado se va a todas las paginas conectadas
             concentradorChat.client.onNewUserConnected = function (id, name, listaUsuarios) {
                 var listItems = [];
+                var sel = document.getElementById("lsbUsuariosConectados");
+                var flagExiste = false;
                 // Agregamos usuarios conectados
-                listItems.push('<option value=' + listaUsuarios[listaUsuarios.length-1].IdUsuario + '>' + name + '</option>');
-                $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
+                for (var i = 0; i < sel.length; i++) {
+                    //  Aca haces referencia al "option" actual
+                    var opt = sel[i];
+                    if (name == opt.text) {
+                        flagExiste = true;
+                    }
+                }
 
+                if (flagExiste == false) {
+                    listItems.push('<option value=' + listaUsuarios[listaUsuarios.length - 1].IdUsuario + '>' + name + '</option>');
+                }
+                
+               $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
             }
 
             //Cuando el usuario recibe un nuevo mensaje
