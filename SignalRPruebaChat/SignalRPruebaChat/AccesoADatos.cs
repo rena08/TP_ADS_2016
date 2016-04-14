@@ -37,7 +37,7 @@ namespace SignalRPruebaChat
             Desconectar();
             Conectar();
             int resultado = 0;
-            string query = "SELECT 1 FROM usuario WHERE nombre= @nombre AND PWDCOMPARE( @password, password)= 1";
+            string query = "SELECT 1 FROM usuario WHERE nombre= @nombre AND PWDCOMPARE( @password, pass)= 1";
             comando = new SqlCommand(query, conexion);
             comando.Parameters.Clear();
             comando.Parameters.AddWithValue("@nombre", nombre);
@@ -57,7 +57,7 @@ namespace SignalRPruebaChat
             Desconectar();
             Conectar();
             int resultado = 0;
-            string query = "SELECT idUsuario FROM usuario WHERE nombre= @nombre AND PWDCOMPARE( @password, password)= 1";
+            string query = "SELECT idUsuario FROM usuario WHERE nombre= @nombre AND PWDCOMPARE( @password, pass)= 1";
             comando = new SqlCommand(query, conexion);
             comando.Parameters.Clear();
             comando.Parameters.AddWithValue("@nombre", nombre);
