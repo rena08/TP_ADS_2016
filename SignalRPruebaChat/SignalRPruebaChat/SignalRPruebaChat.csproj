@@ -106,9 +106,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CSS\tooltipster-shadow.css" />
+    <Content Include="CSS\tooltipster.css" />
+    <Content Include="img\icon_interrogation.png" />
+    <Content Include="RegistrarUsuario.aspx" />
     <Content Include="Sala.aspx" />
     <Content Include="Scripts\jquery.signalR-2.2.0.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
+    <Content Include="Scripts\jquery.tooltipster.min.js" />
     <Content Include="Scripts\jquery.ui.core.js" />
     <Content Include="Scripts\jquery.ui.dialog.js" />
     <Content Include="Scripts\jquery.ui.draggable.js" />
@@ -130,6 +135,9 @@
     <Content Include="Principal.aspx" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="CSS\strength.css" />
+    <Content Include="Scripts\strength.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -137,6 +145,13 @@
   <ItemGroup>
     <Compile Include="AccesoADatos.cs" />
     <Compile Include="ConexionSignalR.cs" />
+    <Compile Include="RegistrarUsuario.aspx.cs">
+      <DependentUpon>RegistrarUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RegistrarUsuario.aspx.designer.cs">
+      <DependentUpon>RegistrarUsuario.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Sala.aspx.cs">
       <DependentUpon>Sala.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

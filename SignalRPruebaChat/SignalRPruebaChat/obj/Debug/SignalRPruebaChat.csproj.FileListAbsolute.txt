@@ -283,3 +283,39 @@ C:\Users\Gaston\Documents\GitHub\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat
 C:\Users\Gaston\Documents\GitHub\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\obj\Debug\SignalRPruebaChat.csprojResolveAssemblyReference.cache
 C:\Users\Gaston\Documents\GitHub\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\obj\Debug\SignalRPruebaChat.dll
 C:\Users\Gaston\Documents\GitHub\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\obj\Debug\SignalRPruebaChat.pdb
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\roslyn\csc.exe
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\roslyn\vbc.exe
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\roslyn\VBCSCompiler.exe
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\SignalRPruebaChat.dll.config
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\SignalRPruebaChat.dll
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\SignalRPruebaChat.pdb
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Microsoft.AspNet.SignalR.Client.dll
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Microsoft.Owin.dll
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Microsoft.Owin.Security.dll
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Newtonsoft.Json.dll
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Owin.dll
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Microsoft.AspNet.SignalR.Client.xml
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Microsoft.Owin.xml
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Microsoft.Owin.Security.xml
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Newtonsoft.Json.xml
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\obj\Debug\SignalRPruebaChat.csprojResolveAssemblyReference.cache
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\obj\Debug\SignalRPruebaChat.dll
+C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\obj\Debug\SignalRPruebaChat.pdb
