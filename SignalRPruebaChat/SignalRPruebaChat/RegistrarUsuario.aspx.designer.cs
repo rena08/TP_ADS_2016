@@ -10,16 +10,16 @@
 namespace SignalRPruebaChat {
     
     
-    public partial class Principal {
+    public partial class RegistrarUsuario {
         
         /// <summary>
-        /// frmInicioSesion control.
+        /// frmRegistrarUsuario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm frmInicioSesion;
+        protected global::System.Web.UI.HtmlControls.HtmlForm frmRegistrarUsuario;
         
         /// <summary>
         /// lblNombreUsuario control.
@@ -49,6 +49,15 @@ namespace SignalRPruebaChat {
         protected global::System.Web.UI.WebControls.Label lblPassword;
         
         /// <summary>
+        /// imgInfoPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgInfoPassword;
+        
+        /// <summary>
         /// txtPassword control.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,24 @@ namespace SignalRPruebaChat {
         protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtPassword;
         
         /// <summary>
+        /// lblConfirmarPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblConfirmarPassword;
+        
+        /// <summary>
+        /// txtConfirmarPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtConfirmarPassword;
+        
+        /// <summary>
         /// btnLogin control.
         /// </summary>
         /// <remarks>
@@ -65,14 +92,5 @@ namespace SignalRPruebaChat {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnLogin;
-        
-        /// <summary>
-        /// btnRegisrarUsuario control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRegisrarUsuario;
     }
 }
