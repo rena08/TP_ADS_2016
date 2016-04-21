@@ -147,7 +147,12 @@
                 if (flagExiste == false) {
                     listItems.push('<option value=' + listaUsuarios[listaUsuarios.length - 1].IdUsuario + '>' + name + '</option>');
                 }
-               $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
+                $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
+
+                var nombreUsuario = name;
+                if (nombreUsuario != name) {
+                    mensajePrivado(concentradorChat);
+                }
             }
 
 
@@ -221,8 +226,8 @@
                             <asp:TextBox ID="txtMensajes" runat="server" Height="119px" Width="235px"></asp:TextBox>
                             <br />
                             <br />
-                            <asp:TextBox ID="txtMensajeAEnviar" runat="server" Width="139px"></asp:TextBox>
-                            &nbsp;&nbsp;&nbsp;&nbsp; <asp:Button ID="btnEnviarMensaje" CssClass="btn-primary" runat="server" Text="Enviar" OnClientClick="return false;"/>
+                            <asp:TextBox ID="txtMensajeAEnviar" placeholder="Escribe un mensaje aquí" runat="server" Width="147px"></asp:TextBox>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:Button ID="btnEnviarMensaje" CssClass="btn-primary" runat="server" Text="Enviar" OnClientClick="return false;"/>
                             <br />
                         </div>
                     </div>
