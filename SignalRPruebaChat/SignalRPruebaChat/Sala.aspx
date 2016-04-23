@@ -166,7 +166,6 @@
         }
 
 
-
         function mensajePrivado(concentradorChat) {
             $('#lsbUsuariosConectados').dblclick(function () {
 
