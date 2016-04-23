@@ -129,30 +129,38 @@
 
             }
 
-
+            
             // Cuando se agrega un usuario conectado se va a todas las paginas conectadas
             concentradorChat.client.onNewUserConnected = function (id, name, listaUsuarios)
             {
                 var listItems = [];
                 var sel = document.getElementById("lsbUsuariosConectados");
                 var flagExiste = false;
+
+                //Habilita envio de mensaje privado a usuario recien conectado
+                var nombreUsuario = name;
+                if (nombreUsuario != name) {
+                    mensajePrivado(concentradorChat);
+                }
+
                 // Agregamos usuarios conectados
                 for (var i = 0; i < sel.length; i++) {
                     //  Aca haces referencia al "option" actual
                     var opt = sel[i];
                     if (name == opt.text) {
                         flagExiste = true;
+
+
                     }
                 }
+
                 if (flagExiste == false) {
                     listItems.push('<option value=' + listaUsuarios[listaUsuarios.length - 1].IdUsuario + '>' + name + '</option>');
                 }
+
+                //Agrega usuario conectado al list box
                 $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
 
-                var nombreUsuario = name;
-                if (nombreUsuario != name) {
-                    mensajePrivado(concentradorChat);
-                }
             }
 
 
@@ -172,8 +180,7 @@
                 var idUsuarioAEnviar = $("#lsbUsuariosConectados").val();
                 var nombreUsuarioAEnviar = $("#lsbUsuariosConectados option:selected").text();
                 var nombreUsuario = txtNombreUsuario.value;
-
-
+                
                 if (nombreUsuarioAEnviar != nombreUsuario) {
 
                     document.getElementById('lblUsuarioDestino').innerHTML = nombreUsuarioAEnviar;
