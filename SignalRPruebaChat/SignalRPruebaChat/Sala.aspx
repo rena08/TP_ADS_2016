@@ -22,6 +22,7 @@
     <script src="/signalr/hubs"></script>
 
     <script type="text/javascript">
+
         $(function () {
 
             document.getElementById("lblUsuarioReg").innerHTML = txtNombreUsuario.value;
@@ -126,28 +127,40 @@
                 for (var i = 0; i < messages.length; i++) {
                     agregarMensaje(messages[i].UserName, messages[i].Message);
                 }
-
             }
 
-
+            
             // Cuando se agrega un usuario conectado se va a todas las paginas conectadas
             concentradorChat.client.onNewUserConnected = function (id, name, listaUsuarios)
             {
                 var listItems = [];
                 var sel = document.getElementById("lsbUsuariosConectados");
                 var flagExiste = false;
+
+                //Habilita envio de mensaje privado a usuario recien conectado
+                var nombreUsuario = txtNombreUsuario.value;
+                if (nombreUsuario != name) {
+                    mensajePrivado(concentradorChat);
+                }
+
                 // Agregamos usuarios conectados
                 for (var i = 0; i < sel.length; i++) {
                     //  Aca haces referencia al "option" actual
                     var opt = sel[i];
                     if (name == opt.text) {
                         flagExiste = true;
+
+
                     }
                 }
+
                 if (flagExiste == false) {
                     listItems.push('<option value=' + listaUsuarios[listaUsuarios.length - 1].IdUsuario + '>' + name + '</option>');
                 }
-               $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
+
+                //Agrega usuario conectado al list box
+                $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
+
             }
 
 
@@ -161,15 +174,13 @@
         }
 
 
-
         function mensajePrivado(concentradorChat) {
             $('#lsbUsuariosConectados').dblclick(function () {
 
                 var idUsuarioAEnviar = $("#lsbUsuariosConectados").val();
                 var nombreUsuarioAEnviar = $("#lsbUsuariosConectados option:selected").text();
                 var nombreUsuario = txtNombreUsuario.value;
-
-
+                
                 if (nombreUsuarioAEnviar != nombreUsuario) {
 
                     document.getElementById('lblUsuarioDestino').innerHTML = nombreUsuarioAEnviar;
@@ -221,8 +232,8 @@
                             <asp:TextBox ID="txtMensajes" runat="server" Height="119px" Width="235px"></asp:TextBox>
                             <br />
                             <br />
-                            <asp:TextBox ID="txtMensajeAEnviar" runat="server" Width="139px"></asp:TextBox>
-                            &nbsp;&nbsp;&nbsp;&nbsp; <asp:Button ID="btnEnviarMensaje" CssClass="btn-primary" runat="server" Text="Enviar" OnClientClick="return false;"/>
+                            <asp:TextBox ID="txtMensajeAEnviar" placeholder="Escribe un mensaje aquí" runat="server" Width="147px"></asp:TextBox>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:Button ID="btnEnviarMensaje" CssClass="btn-primary" runat="server" Text="Enviar" OnClientClick="return false;"/>
                             <br />
                         </div>
                     </div>

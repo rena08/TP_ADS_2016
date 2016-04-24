@@ -77,7 +77,6 @@
             $("#imgInfoPassword").tooltipster({
                 theme: 'tooltipster-shadow'
             })
-            
         });
         
     </script>

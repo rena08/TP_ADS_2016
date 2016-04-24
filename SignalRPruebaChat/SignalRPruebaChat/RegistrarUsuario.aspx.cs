@@ -39,7 +39,7 @@ namespace SignalRPruebaChat
             else
             {
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Error, usuario existente. Ingrese otro nombre de usuario')", true);
-            }           
+            }     
         }
     }
 }
