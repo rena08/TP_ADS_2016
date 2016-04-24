@@ -22,6 +22,7 @@
     <script src="/signalr/hubs"></script>
 
     <script type="text/javascript">
+
         $(function () {
 
             document.getElementById("lblUsuarioReg").innerHTML = txtNombreUsuario.value;
@@ -126,7 +127,6 @@
                 for (var i = 0; i < messages.length; i++) {
                     agregarMensaje(messages[i].UserName, messages[i].Message);
                 }
-
             }
 
             
@@ -138,7 +138,7 @@
                 var flagExiste = false;
 
                 //Habilita envio de mensaje privado a usuario recien conectado
-                var nombreUsuario = name;
+                var nombreUsuario = txtNombreUsuario.value;
                 if (nombreUsuario != name) {
                     mensajePrivado(concentradorChat);
                 }
