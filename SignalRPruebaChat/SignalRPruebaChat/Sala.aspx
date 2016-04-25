@@ -166,9 +166,21 @@
 
             concentradorChat.client.sendPrivateMessage = function (idUsuarioOrigen, fromUserName, message) {
 
-                $('#txtMensajes').val(message);
-                document.getElementById('lblUsuarioDestino').innerHTML = fromUserName;
-               
+                
+
+                var cont = 0;
+                alert("idUsuarioOrigen: " + idUsuarioOrigen);
+                alert("Contador: " + cont);
+                cont = cont + 1;
+
+                $('#txtMensajes').append(message + "\n");
+
+                //Filtro para que solo se cambie el nombre si no es el mismo usuario
+                var nombreUsuario = txtNombreUsuario.value;
+                if (fromUserName != nombreUsuario) {
+                    document.getElementById('lblUsuarioDestino').innerHTML = fromUserName;
+                }
+
             }
 
         }
@@ -229,7 +241,7 @@
                             </h3>
                         </div>
                         <div class="panel-body">
-                            <asp:TextBox ID="txtMensajes" runat="server" Height="119px" Width="235px"></asp:TextBox>
+                            <asp:TextBox ID="txtMensajes" runat="server" Height="119px" Width="235px" TextMode="MultiLine"></asp:TextBox>
                             <br />
                             <br />
                             <asp:TextBox ID="txtMensajeAEnviar" placeholder="Escribe un mensaje aquí" runat="server" Width="147px"></asp:TextBox>
