@@ -23,7 +23,7 @@ namespace SignalRPruebaChat
 
         #region Métodos
 
-
+  
         public void conectar(string nombreUsuario, string password)
         {
             if ((listaUsuarios.Count(x => x.ConexionID == Context.ConnectionId) == 0))
@@ -72,6 +72,7 @@ namespace SignalRPruebaChat
             }
 
         }
+
     }
 
         #endregion
