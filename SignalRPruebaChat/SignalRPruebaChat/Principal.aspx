@@ -8,13 +8,16 @@
     <!--Título de pestaña-->
     <title>Chat - Inicio de Sesión</title>
 
-    <!--CDN de Bootstrap-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
 
     <!--CDN de Bootstrap-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous" />
+    <link rel="stylesheet" href="Bootstrap/bootstrap.min.css"/>
+
+    <!--CDN de Bootstrap-->
+    <link rel="stylesheet" href="Bootstrap/bootstrap-theme.min.css" />
+
 
     <!--Latest compiled and minified JavaScript-->
+    <script src="Bootstrap/bootstrap.min.js"></script>
     <script src="Scripts/jquery-1.10.2.js"></script>
     <script src="Scripts/jquery-1.10.2.min.js"></script>
     <script src="Scripts/jquery-1.10.2.intellisense.js"></script>
@@ -43,15 +46,16 @@
                     <br />
                     <!--Contraseña-->
                     <asp:Label ID="lblPassword" runat="server" Text="Contraseña: "></asp:Label>
-                    <input id="txtPassword" type="password" runat="server" class="form-control" />
-                    <br />
-                    <!--Confirmar y registrar usuario-->
+                    <input id="txtPassword" type="password" runat="server" class="form-control" /><br />
                     <div class="col-xs-offset-4">
                         <asp:Button ID="btnLogin" runat="server" Text="Iniciar Sesión" CssClass="btn-primary" OnClick="btnLogin_Click" />
-                        <br />
-                        <br />
+                        &nbsp;
                         <asp:Button ID="btnRegisrarUsuario" runat="server" Text="Registrarse" CssClass="btn-primary" OnClick="btnRegisrarUsuario_Click"/>
+                    &nbsp;<br />
                     </div>
+                    <br />
+                        
+                    <!--Confirmar y registrar usuario-->
                 </div>
             </div>
         </div>

@@ -106,6 +106,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Bootstrap\bootstrap-theme.min.css" />
+    <Content Include="Bootstrap\bootstrap.min.css" />
+    <Content Include="Bootstrap\bootstrap.min.js" />
     <Content Include="CSS\tooltipster-shadow.css" />
     <Content Include="CSS\tooltipster.css" />
     <Content Include="img\icon_interrogation.png" />

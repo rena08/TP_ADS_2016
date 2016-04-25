@@ -6,14 +6,14 @@
 <head runat="server">
     <title>Sala de Chat</title>
 
-    <!-- CDN de Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
+    <!--CDN de Bootstrap-->
+    <link rel="stylesheet" href="Bootstrap/bootstrap.min.css"/>
 
-    <!-- CDN de Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous" />
+    <!--CDN de Bootstrap-->
+    <link rel="stylesheet" href="Bootstrap/bootstrap-theme.min.css" />
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"> </script>
+    <script src="Bootstrap/bootstrap.min.js"></script>
     <script src="Scripts/jquery-1.10.2.intellisense.js"></script>
     <script src="Scripts/jquery-1.10.2.js"></script>
     <script src="Scripts/jquery-1.10.2.min.js"></script>
@@ -36,7 +36,6 @@
             });
 
         })
-
 
         function inicioChat(concentradorChat) {
             //var nombre = getUrlVars()['nombre'];
@@ -108,6 +107,7 @@
                         //alert('User name= ' + allUsers[i].UserName + ' , id=' + allUsers[i].IdUsuario );
                         var nombreUsuario = txtNombreUsuario.value;
                         if (nombreUsuario != allUsers[i].UserName) {
+                            
                             mensajePrivado(concentradorChat);
                         }
                     }
@@ -140,6 +140,7 @@
                 //Habilita envio de mensaje privado a usuario recien conectado
                 var nombreUsuario = txtNombreUsuario.value;
                 if (nombreUsuario != name) {
+                    
                     mensajePrivado(concentradorChat);
                 }
 
@@ -163,12 +164,31 @@
 
             }
 
+            // Cuando un usuario se desconecta
+            concentradorChat.client.onUserDisconnected = function (id, userName) {
 
+                alert("id: " + id);
+                alert("userName: " + userName);
+
+                //var disc = $('<div class="disconnect">"' + userName + '" logged off.</div>');
+                //$(disc).hide();
+                //$('#divusers').prepend(disc);
+                //$(disc).fadeIn(200).delay(2000).fadeOut(200);
+            }
+
+            //Envio de mensajes entre usuarios
             concentradorChat.client.sendPrivateMessage = function (idUsuarioOrigen, fromUserName, message) {
 
-                $('#txtMensajes').val(message);
-                document.getElementById('lblUsuarioDestino').innerHTML = fromUserName;
-               
+                
+                    $('#txtMensajes').append(fromUserName + ": " + message + "\n");
+
+                    //Filtro para que solo se cambie el nombre si no es el mismo usuario
+                    var nombreUsuario = txtNombreUsuario.value;
+                    if (fromUserName != nombreUsuario) {
+                        document.getElementById('lblUsuarioDestino').innerHTML = fromUserName;
+                    }
+                
+
             }
 
         }
@@ -201,6 +221,7 @@
                 }
             });
         }
+
     </script>
 
 </head>
@@ -209,7 +230,7 @@
         <br />
         <div class="container">
             <div class="row">
-                <div class="col-xs-3  col-xs-offset-1" style="float: left">
+                <div class="col-xs-3  col-xs-offset-1" style="float: left; top: 0px; left: 0px;">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title">BIENVENIDO Sr/a:&nbsp;<asp:Label ID="lblUsuarioReg" runat="server" Text="[usuarioRegistrado]"></asp:Label>
@@ -218,22 +239,23 @@
                             <h3 class="panel-title">Usuarios Conectados</h3>
                         </div>
                         <div class="panel-body">
-                            <asp:ListBox ID="lsbUsuariosConectados" runat="server" CssClass="form-control"></asp:ListBox>
+                            <asp:ListBox ID="lsbUsuariosConectados" runat="server" CssClass="form-control" Height="180px" Width="232px"></asp:ListBox>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-3 col-xs-offset-1"  style="float: right; top: 0px; left: 0px; margin-right: 378px;">
+                <div class="col-xs-3 col-xs-offset-1"  style="float: right; top: 0px; left: -22px; margin-right: 378px; height: 283px;">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title">Chat individual: &nbsp;&nbsp;<asp:Label ID="lblUsuarioDestino" runat="server" Text="[usuarAEnviar]"></asp:Label>
                             </h3>
                         </div>
                         <div class="panel-body">
-                            <asp:TextBox ID="txtMensajes" runat="server" Height="119px" Width="235px"></asp:TextBox>
+                            <asp:TextBox ID="txtMensajes" runat="server" Height="119px" Width="235px" TextMode="MultiLine"></asp:TextBox>
                             <br />
                             <br />
                             <asp:TextBox ID="txtMensajeAEnviar" placeholder="Escribe un mensaje aquí" runat="server" Width="147px"></asp:TextBox>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:Button ID="btnEnviarMensaje" CssClass="btn-primary" runat="server" Text="Enviar" OnClientClick="return false;"/>
+                            &nbsp;&nbsp;&nbsp;<asp:Button ID="btnEnviarMensaje" CssClass="btn-primary" runat="server" Text="Enviar" OnClientClick="return false;"/>
+                            &nbsp;&nbsp;&nbsp;
                             <br />
                         </div>
                     </div>
