@@ -9,6 +9,7 @@ namespace SignalRPruebaChat
 {
     public partial class RegistrarUsuario : System.Web.UI.Page
     {
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -17,11 +18,11 @@ namespace SignalRPruebaChat
         //Registrar un nuevo usuario  
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            AccesoADatos datos = new AccesoADatos();
-            bool existe = datos.compararNombre(txtNombreUsuario.Value);
+            ServiceReference1.Service1Client objServiceClientobjService = new ServiceReference1.Service1Client();
+            bool existe = objServiceClientobjService.compararNombre(txtNombreUsuario.Value);
             if (existe == false)
             {
-                bool insert = datos.insertarUsuario(txtNombreUsuario.Value, txtPassword.Value);
+                bool insert = objServiceClientobjService.insertarUsuario(txtNombreUsuario.Value, txtPassword.Value);
                 if (insert == true)
                 {
                     TSHAK.Components.SecureQueryString querystring;

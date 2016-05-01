@@ -15,15 +15,13 @@ namespace SignalRPruebaChat
     {
         #region Atributos
 
-        static AccesoADatos acceso = new AccesoADatos();
+        ServiceReference1.Service1Client objServiceClientobjService = new ServiceReference1.Service1Client();
         public static List<Usuario> listaUsuarios = new List<Usuario>();
         public static List<Mensaje> listaMensajes = new List<Mensaje>();
 
         #endregion
 
         #region Métodos
-
-  
         public void conectar(string nombreUsuario, string password)
         {
             if ((listaUsuarios.Count(x => x.ConexionID == Context.ConnectionId) == 0))
@@ -33,7 +31,7 @@ namespace SignalRPruebaChat
                 usuario.ConexionID = Context.ConnectionId;
                 usuario.UserName = nombreUsuario;
                 usuario.Password = password;
-                usuario.IdUsuario = acceso.devolverIdUsuario(nombreUsuario,password);
+                usuario.IdUsuario = objServiceClientobjService.devolverIdUsuario(nombreUsuario,password);
                 listaUsuarios.Add(usuario);
 
                 //Se define que el usuario que entro se conectó

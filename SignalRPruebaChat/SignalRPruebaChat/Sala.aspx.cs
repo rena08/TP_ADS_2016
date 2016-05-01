@@ -37,8 +37,8 @@ namespace SignalRPruebaChat.Fomrularios
         [WebMethod]
         public static int devolverIdUsuario(string nombre, string password)
         {
-            AccesoADatos acceso = new AccesoADatos();
-            return acceso.devolverIdUsuario(nombre, password);
+            ServiceReference1.Service1Client objServiceClientobjService = new ServiceReference1.Service1Client();
+            return objServiceClientobjService.devolverIdUsuario(nombre, password);
         }
 
 

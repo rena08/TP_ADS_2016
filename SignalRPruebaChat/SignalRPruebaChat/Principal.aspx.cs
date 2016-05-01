@@ -12,18 +12,11 @@ namespace SignalRPruebaChat
     
     public partial class Principal : System.Web.UI.Page
     {
-        
+        //ServiceReference1.Service1Client objServiceClientobjService = new ServiceReference1.Service1Client();
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
-        }
-
-        [WebMethod]
-        public static int llamador(string nombre, string password)
-        {
-            AccesoADatos acceso = new AccesoADatos();
-            int res = acceso.usuarioCorrecto(nombre, password);
-            return res;
         }
 
         //Iniciar sesión
@@ -31,8 +24,8 @@ namespace SignalRPruebaChat
         {            
             if (txtNombreUsuario.Value != "" && txtPassword.Value != "")
             {
-                AccesoADatos acceso = new AccesoADatos();
-                int res = acceso.usuarioCorrecto(txtNombreUsuario.Value, txtPassword.Value);
+                ServiceReference1.Service1Client objServiceClientobjService = new ServiceReference1.Service1Client();
+                int res = objServiceClientobjService.usuarioCorrecto(txtNombreUsuario.Value, txtPassword.Value);
                 if (res == 1)
                 {
                     TSHAK.Components.SecureQueryString querystring;

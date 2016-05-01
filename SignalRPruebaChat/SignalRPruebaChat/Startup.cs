@@ -4,7 +4,6 @@ using Microsoft.Owin;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(SignalRPruebaChat.Startup))]
-
 namespace SignalRPruebaChat
 {
     public class Startup

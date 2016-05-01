@@ -9,18 +9,12 @@ namespace SignalRPruebaChat
 {
     public class AccesoADatos
     {
-        #region Atributos
-
         //Declaramos las variables comando y conexion
         private SqlCommand comando = new SqlCommand();
         private SqlConnection conexion = new SqlConnection();
         private string connection_string = ConfigurationManager.ConnectionStrings["Chat"].ConnectionString;
 
-        #endregion
-
-        #region Conexión BD
-
-        //Conectarme a la base de datos
+        // Método que me permite conectarme a la base de datos
         public void Conectar()
         {
             conexion.ConnectionString = connection_string;
@@ -28,28 +22,27 @@ namespace SignalRPruebaChat
             conexion.Open();
         }
 
-        //Desconectarme de la base de datos
+        // Método que me permite desconectarme de la base de datos
         public void Desconectar()
         {
             conexion.Close();
             conexion.Dispose();
         }
 
-        #endregion
 
-        #region Autenticación de usuario
-
-        //Autenticar a un usuario que desea ingresar al chat        
+        // Método que me permite autenticar a un usuario que desea ingresar al chat
+        // ARREGLAR ACAAAAAA!
         public int usuarioCorrecto(string nombre, string password)
         {
             Desconectar();
             Conectar();
             int resultado = 0;
-            string query = "SELECT 1 FROM usuario WHERE nombre= @nombre AND PWDCOMPARE( @password, pass)= 1";
+            string query = "SELECT 1 FROM usuario WHERE nombre= @nombre AND PWDCOMPARE( @password, password)= 1";
             comando = new SqlCommand(query, conexion);
             comando.Parameters.Clear();
             comando.Parameters.AddWithValue("@nombre", nombre);
-            comando.Parameters.AddWithValue("@password", password);            
+            comando.Parameters.AddWithValue("@password", password);
+            
             SqlDataReader dr = comando.ExecuteReader();
             if (dr.Read())
             {
@@ -58,21 +51,18 @@ namespace SignalRPruebaChat
             return resultado;
         }
 
-        #endregion
-
-        #region Retorno de datos
-
-        //Recuperar id de un usuario
         public int devolverIdUsuario(string nombre, string password)
         {
+
             Desconectar();
             Conectar();
             int resultado = 0;
-            string query = "SELECT idUsuario FROM usuario WHERE nombre= @nombre AND PWDCOMPARE( @password, pass)= 1";
+            string query = "SELECT idUsuario FROM usuario WHERE nombre= @nombre AND PWDCOMPARE( @password, password)= 1";
             comando = new SqlCommand(query, conexion);
             comando.Parameters.Clear();
             comando.Parameters.AddWithValue("@nombre", nombre);
             comando.Parameters.AddWithValue("@password", password);
+
             SqlDataReader dr = comando.ExecuteReader();
             if (dr.Read())
             {
@@ -80,54 +70,5 @@ namespace SignalRPruebaChat
             }
             return resultado;
         }
-
-        #endregion
-
-        #region Comparación de datos
-
-        //Corroborar si un nombre de usuario existe en la base de datos
-        public bool compararNombre(string nombreUsuario)
-        {
-            Desconectar();
-            Conectar();
-            string query = "SELECT 1 FROM usuario WHERE nombre=@nombreUsuario";
-            comando = new SqlCommand(query, conexion);
-            comando.Parameters.Clear();
-            comando.Parameters.AddWithValue("@nombreUsuario", nombreUsuario);
-            SqlDataReader dr = comando.ExecuteReader();
-            if (dr.Read())
-            {
-                return true;
-            }
-            return false;
-        }
-
-        #endregion
-
-        #region Alta de usuarios
-
-        //Insertar un nuevo usuario en la base de datos
-        public bool insertarUsuario(string nombreUsuario, string password)
-        {
-            Desconectar();
-            Conectar();            
-            string query = "INSERT INTO usuario (nombre, pass, logueado) values (@nombreUsuario, PWDENCRYPT(@password), 0)";
-            comando = new SqlCommand(query, conexion);
-            comando.Parameters.Clear();
-            comando.Parameters.AddWithValue("@nombreUsuario", nombreUsuario);
-            comando.Parameters.AddWithValue("@password", password);
-            int resultado = comando.ExecuteNonQuery();            
-            if (resultado == 1)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        #endregion
-
-
-
-
     }
 }
