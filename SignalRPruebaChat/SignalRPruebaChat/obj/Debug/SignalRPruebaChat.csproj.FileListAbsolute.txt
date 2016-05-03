@@ -319,3 +319,4 @@ C:\Users\AgustinPC\Desktop\GitHub\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaCha
 C:\Users\AgustinPC\Desktop\GitHub\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Newtonsoft.Json.xml
 C:\Users\AgustinPC\Desktop\GitHub\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\obj\Debug\SignalRPruebaChat.dll
 C:\Users\AgustinPC\Desktop\GitHub\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\obj\Debug\SignalRPruebaChat.pdb
+C:\Users\Rena\Documents\GitHub\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\obj\Debug\SignalRPruebaChat.csprojResolveAssemblyReference.cache
