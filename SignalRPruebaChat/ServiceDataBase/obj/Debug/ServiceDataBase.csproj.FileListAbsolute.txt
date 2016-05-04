@@ -9,9 +9,9 @@ C:\Users\Rena\Documents\GitHub\TP_ADS_2016\SignalRPruebaChat\ServiceDataBase\bin
 C:\Users\Rena\Documents\GitHub\TP_ADS_2016\SignalRPruebaChat\ServiceDataBase\obj\Debug\ServiceDataBase.csprojResolveAssemblyReference.cache
 C:\Users\Rena\Documents\GitHub\TP_ADS_2016\SignalRPruebaChat\ServiceDataBase\obj\Debug\ServiceDataBase.dll
 C:\Users\Rena\Documents\GitHub\TP_ADS_2016\SignalRPruebaChat\ServiceDataBase\obj\Debug\ServiceDataBase.pdb
+C:\Users\Santiago\Desktop\TP_ADS_2016\SignalRPruebaChat\ServiceDataBase\bin\ServiceDataBase.dll.config
 C:\Users\Santiago\Desktop\TP_ADS_2016\SignalRPruebaChat\ServiceDataBase\bin\ServiceDataBase.dll
 C:\Users\Santiago\Desktop\TP_ADS_2016\SignalRPruebaChat\ServiceDataBase\bin\ServiceDataBase.pdb
+C:\Users\Santiago\Desktop\TP_ADS_2016\SignalRPruebaChat\ServiceDataBase\obj\Debug\ServiceDataBase.csprojResolveAssemblyReference.cache
 C:\Users\Santiago\Desktop\TP_ADS_2016\SignalRPruebaChat\ServiceDataBase\obj\Debug\ServiceDataBase.dll
 C:\Users\Santiago\Desktop\TP_ADS_2016\SignalRPruebaChat\ServiceDataBase\obj\Debug\ServiceDataBase.pdb
-C:\Users\Santiago\Desktop\TP_ADS_2016\SignalRPruebaChat\ServiceDataBase\bin\ServiceDataBase.dll.config
-C:\Users\Santiago\Desktop\TP_ADS_2016\SignalRPruebaChat\ServiceDataBase\obj\Debug\ServiceDataBase.csprojResolveAssemblyReference.cache
