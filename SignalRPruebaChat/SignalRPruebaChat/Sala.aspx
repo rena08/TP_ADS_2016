@@ -65,20 +65,10 @@
                 var listItems = [];
                 var nombreUsuario = txtNombreUsuario.value;
                 
-
-                //if (allUsers.length > 1) {
                 for (i = 0; i < allUsers.length; i++) {
-                    
-                    //Habilitar el if si no quiero ver mi usuario conectado
-                    //if (allUsers[i].ConexionID != id)
-                    //{
                         listItems.push('<option value=' + allUsers[i].ConexionID + '>' + allUsers[i].UserName + '</option>');
-                    //}
-                        
-                            mensajePrivado(concentradorChat, allUsers[i].ConexionID, allUsers[i].UserName);
-                        
+                        mensajePrivado(concentradorChat, allUsers[i].ConexionID, allUsers[i].UserName);
                 }
-                //}
 
                 $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
 
@@ -103,26 +93,6 @@
                 //Agrega usuario conectado al list box
                 $("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
 
-                //var sel = document.getElementById("#lsbUsuariosConectados");
-                //var flagExiste = false;
-                //alert("sel: "+ sel);
-                ////Habilita envio de mensaje privado a usuario recien conectado
-                ////var nombreUsuario = txtNombreUsuario.value;
-                
-
-                //// Agregamos usuarios conectados
-                //for (var i = 0; i < sel.length; i++) {
-                //    //  Aca haces referencia al "option" actual
-                //    var opt = sel[i];
-                //    if (name == opt.text) {
-                //        flagExiste = true;
-                //    }
-                //}
-
-                //if (flagExiste == false) {
-                //    listItems.push('<option value=' + listaUsuarios[listaUsuarios.length - 1].ConexionID + '>' + name + '</option>');
-                //}
-
             }
 
             // Cuando un usuario se desconecta
@@ -145,34 +115,6 @@
 
         }
 
-        //function mensajePrivado(concentradorChat, id, name) {
-        //    $('#lsbUsuariosConectados').dblclick(function () {
-
-        //        var idUsuarioAEnviar = $("#lsbUsuariosConectados option:selected").val();
-        //        var nombreUsuarioAEnviar = $("#lsbUsuariosConectados option:selected").text();
-        //        var usuarioLogueado = txtNombreUsuario.value;
-                
-        //        if (nombreUsuarioAEnviar != usuarioLogueado && id == idUsuarioAEnviar) {
-
-        //            document.getElementById('lblUsuarioDestino').innerHTML = nombreUsuarioAEnviar;
-        //            //enviarMensajePrivado(concentradorChat, idUsuarioAEnviar);
-        //            $("#btnEnviarMensaje").click(function () {
-        //                var msg = $("#txtMensajeAEnviar").val();
-        //                        if (msg.length > 0) {
-        //                            //alert("Envio un mensaje a: " + nombreUsuarioAEnviar +" con id: "+ idUsuarioAEnviar);
-        //                            concentradorChat.server.envioDeMensaje(idUsuarioAEnviar, msg);
-        //                            if (idUsuarioAEnviar != id) {
-        //                                idUsuarioAEnviar = "";
-        //                            }
-        //                            //$("#txtMensajeAEnviar").val("");
-        //                        } else {
-        //                           alert("Escribir mensaje a enviar");
-        //              }
-        //            });
-        //        }
-        //    });
-        //}
-
         function mensajePrivado(concentradorChat, id, name) {
 
             $('#lsbUsuariosConectados').dblclick(function () {
@@ -183,36 +125,21 @@
 
                 if (nombreUsuarioAEnviar != usuarioLogueado && id == idUsuarioAEnviar) {
                     document.getElementById('lblUsuarioDestino').innerHTML = nombreUsuarioAEnviar;
-                    //enviarMensajePrivado(concentradorChat, idUsuarioAEnviar);
-                    alert("1Envio un mensaje a: " + nombreUsuarioAEnviar + " con id: " + idUsuarioAEnviar);
 
                     $("#btnEnviarMensaje").click(function () {
                         var msg = $("#txtMensajeAEnviar").val();
-                        if (msg.length > 0) {
-                            alert("2Envio un mensaje a: " + nombreUsuarioAEnviar + " con id: " + idUsuarioAEnviar);
-                            concentradorChat.server.envioDeMensaje(idUsuarioAEnviar, msg);
-                            //idUsuarioAEnviar = "";
+                        var idUsuarioAEnviar = $("#lsbUsuariosConectados option:selected").val();
+                        if (idUsuarioAEnviar == id) {
+                            if (msg.length > 0) {
+                                concentradorChat.server.envioDeMensaje(idUsuarioAEnviar, msg);
+                                $("#txtMensajeAEnviar").val("");
+                            }
                         }
                     });
                 }
             });
         }
         
-
-
-
-        //function enviarMensajePrivado(concentradorChat,idUsuarioAEnviar) {
-        //    // Evento enviar mensaje
-        //    $("#btnEnviarMensaje").click(function () {
-        //        var msg = $("#txtMensajeAEnviar").val();
-        //        if (msg.length > 0) {
-        //            concentradorChat.server.envioDeMensaje(idUsuarioAEnviar, msg);
-        //            //$("#txtMensajeAEnviar").val("");
-        //        } else {
-        //           alert("Escribir mensaje a enviar");
-        //        }
-        //    });
-        //}
 
     </script>
 
