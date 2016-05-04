@@ -43,32 +43,23 @@ namespace SignalRPruebaChat
             }
         }
 
-        public void envioDeMensaje(int idUsuarioDestino, string mensaje)
+        public void envioDeMensaje(string usuarioDestino, string mensaje)
         {
             string usuarioOrigen = Context.ConnectionId;
-            string usuarioDestino = "";
-            foreach (var usuarios in listaUsuarios)
-            {
-                if (idUsuarioDestino == usuarios.IdUsuario)
-                {
-                    usuarioDestino = usuarios.ConexionID;
-                    break;
-                }
-            }
 
             Usuario destino = listaUsuarios.FirstOrDefault(x => x.ConexionID == usuarioDestino);
             Usuario origen = listaUsuarios.FirstOrDefault(x => x.ConexionID == usuarioOrigen);
-
+            
 
             if (origen != null && destino != null)
             {
-                // Envio de mensaje al destino
-                Clients.Client(usuarioDestino).sendPrivateMessage(usuarioOrigen, origen.UserName, mensaje);
+                
+                    // Envio de mensaje al destino
+                    Clients.Client(usuarioDestino).sendPrivateMessage(usuarioOrigen, origen.UserName, mensaje);
 
-                // send to caller user
-                Clients.Caller.sendPrivateMessage(usuarioDestino, origen.UserName, mensaje);
+                    // send to caller user
+                    Clients.Caller.sendPrivateMessage(usuarioDestino, origen.UserName, mensaje);
             }
-
         }
 
     }
