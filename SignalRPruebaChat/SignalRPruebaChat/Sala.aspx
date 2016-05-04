@@ -58,38 +58,6 @@
             });
         }
 
-
-        //Doble click en el list box
-        //$(function dobleClickLsb() {
-        //    var x;
-        //    x = $("#lsbUsuariosConectados");
-        //    x.dblclick($(x.options.select()).bind("dblclick", function () {
-        //        alert($(this).select().text());
-        //        //var name = $("[#lsbUsuariosConectados] option:selected")
-        //        //alert(var options = $("");)
-        //    }));
-            
-        //});
-
-        //$(function () {
-        //    $("#lsbUsuariosConectados").bind("dblclick", function () {
-        //        alert($(this).select.text());
-        //    });
-        //});
-
-
-        //Obtener valor de la variable del query string
-        //function getUrlVars() {
-        //    var vars = [], hash;
-        //    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-        //    for (var i = 0; i < hashes.length; i++) {
-        //        hash = hashes[i].split('=');
-        //        vars.push(hash[0]);
-        //        vars[hash[0]] = hash[1];
-        //    }
-        //    return vars;
-        //}
-
         function metodosDelCliente(concentradorChat) {
             // Una vez atravezado el login lo conectamos a signal R
             concentradorChat.client.onConnected = function (id, userName, allUsers, messages) {
@@ -97,19 +65,17 @@
                 var listItems = [];
                 var nombreUsuario = txtNombreUsuario.value;
                 
-
                 if (allUsers.length > 1) {
                     for (i = 0; i < allUsers.length - 1; i++) {
                         if (nombreUsuario != allUsers[i].UserName) {
-                            listItems.push('<option value=' + allUsers[i].IdUsuario + '>' + allUsers[i].UserName + '</option>');
+                            listItems.push('<option value=' + allUsers[i].ConexionID + '>' + allUsers[i].UserName + '</option>');
                         }
-                        //alert utilizado para verificar que los id's se han cargado correctamente
-                        //alert('User name= ' + allUsers[i].UserName + ' , id=' + allUsers[i].IdUsuario );
-                        var nombreUsuario = txtNombreUsuario.value;
-                        if (nombreUsuario != allUsers[i].UserName) {
-                            
-                            mensajePrivado(concentradorChat);
-                        }
+                    }
+
+                    
+                    if (nombreUsuario != userName) {
+                        alert("ID AL USUARIO QUE VA A ENVIAR: " +id);
+                        mensajePrivado(concentradorChat);
                     }
 
                     //Borrar duplicados en lista de usuarios conectados
@@ -120,7 +86,6 @@
 
                     $("#<%=lsbUsuariosConectados.ClientID%>").append(arraySinDuplicados.join(''));
                     //$("#<%=lsbUsuariosConectados.ClientID%>").append(listItems.join(''));
-                    //AddUser(chatHub, allUsers[i].ConnectionId, allUsers[i].UserName);
                 }
 
                 //Agregar todos los mensajes
@@ -187,8 +152,6 @@
                     if (fromUserName != nombreUsuario) {
                         document.getElementById('lblUsuarioDestino').innerHTML = fromUserName;
                     }
-                
-
             }
 
         }
