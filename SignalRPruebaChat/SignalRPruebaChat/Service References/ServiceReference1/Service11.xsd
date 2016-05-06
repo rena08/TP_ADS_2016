@@ -79,4 +79,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="insertarMensaje">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idUsuarioOrigen" type="xs:int" />
+        <xs:element minOccurs="0" name="idUsuarioDestino" type="xs:int" />
+        <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="insertarMensajeResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
