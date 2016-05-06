@@ -54,7 +54,7 @@
                         </div>
                         <!--Envío de mensajes-->
                         <div class="panel-body">
-                            <asp:TextBox ID="txtMensajes" runat="server" Height="119px" Width="235px" TextMode="MultiLine"></asp:TextBox>
+                            <asp:TextBox ID="txtMensajes" runat="server" Height="119px" Width="235px" TextMode="MultiLine" ReadOnly="True"></asp:TextBox>
                             <br />
                             <br />
                             <asp:TextBox ID="txtMensajeAEnviar" placeholder="Escribe un mensaje aquí" runat="server" Width="147px"></asp:TextBox>

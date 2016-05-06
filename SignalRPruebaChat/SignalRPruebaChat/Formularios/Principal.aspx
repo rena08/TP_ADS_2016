@@ -46,7 +46,7 @@
                         <asp:Button ID="btnLogin" runat="server" Text="Iniciar Sesión" CssClass="btn-primary" OnClick="btnLogin_Click" />
                         <br />
                         <br />
-                        <asp:Button ID="btnRegisrarUsuario" runat="server" Text="Registrarse" CssClass="btn-primary" OnClick="btnRegisrarUsuario_Click"/>
+                        <asp:Button ID="btnRegisrarUsuario" runat="server" Text="Registrarse" CssClass="btn-primary" OnClick="btnRegisrarUsuario_Click" Width="125px"/>
                     </div>
                 </div>
             </div>
