@@ -47,7 +47,8 @@ namespace ServiceDataBase
             Desconectar();
             Conectar();
             int resultado = 0;
-            string query = "SELECT 1 FROM usuario WHERE nombre= @nombre AND PWDCOMPARE( @password, pass)= 1";
+            string query = "SELECT 1 FROM usuario WHERE nombre=@nombre AND " +
+                "(HASHBYTES('SHA1', @password) = (SELECT pass FROM usuario WHERE nombre=@nombre))"; 
             comando = new SqlCommand(query, conexion);
             comando.Parameters.Clear();
             comando.Parameters.AddWithValue("@nombre", nombre);
@@ -62,14 +63,14 @@ namespace ServiceDataBase
         #endregion
 
         #region Retorno de datos
-
         //Recuperar id de un usuario
         public int devolverIdUsuario(string nombre, string password)
         {
             Desconectar();
             Conectar();
             int resultado = 0;
-            string query = "SELECT idUsuario FROM usuario WHERE nombre= @nombre AND PWDCOMPARE( @password, pass)= 1";
+            string query = "SELECT idUsuario FROM usuario WHERE nombre=@nombre AND " +
+                "(HASHBYTES('SHA1', @password) = (SELECT pass FROM usuario WHERE nombre=@nombre))";
             comando = new SqlCommand(query, conexion);
             comando.Parameters.Clear();
             comando.Parameters.AddWithValue("@nombre", nombre);
@@ -81,7 +82,6 @@ namespace ServiceDataBase
             }
             return resultado;
         }
-
         #endregion
 
         #region Comparación de datos
@@ -109,7 +109,7 @@ namespace ServiceDataBase
         {
             Desconectar();
             Conectar();
-            string query = "INSERT INTO usuario (nombre, pass, logueado) values (@nombreUsuario, PWDENCRYPT(@password), 0)";
+            string query = "INSERT INTO usuario (nombre, pass, logueado) values (@nombreUsuario, HASHBYTES ('SHA1', @password), 0)";
             comando = new SqlCommand(query, conexion);
             comando.Parameters.Clear();
             comando.Parameters.AddWithValue("@nombreUsuario", nombreUsuario);
@@ -123,7 +123,7 @@ namespace ServiceDataBase
         }
         #endregion
 
-        #region insertar mensaje
+        #region Insertar mensaje
         public void insertarMensaje(int idUsuarioOrigen, int idUsuarioDestino, string mensaje)
         {
             Desconectar();
