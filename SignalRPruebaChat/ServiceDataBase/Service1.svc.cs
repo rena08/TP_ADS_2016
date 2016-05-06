@@ -20,6 +20,7 @@ namespace ServiceDataBase
         private SqlCommand comando = new SqlCommand();
         private SqlConnection conexion = new SqlConnection();
         private string connection_string = ConfigurationManager.ConnectionStrings["Chat"].ConnectionString;
+        private SqlTransaction transaccion;
         #endregion
 
         #region Conexión BD
@@ -119,6 +120,49 @@ namespace ServiceDataBase
                 return true;
             }
             return false;
+        }
+        #endregion
+
+        #region insertar mensaje
+        public void insertarMensaje(int idUsuarioOrigen, int idUsuarioDestino, string mensaje)
+        {
+            Desconectar();
+            Conectar();
+            transaccion = conexion.BeginTransaction();
+            comando.Transaction=transaccion;
+            try
+            {
+                string query = "INSERT INTO mensaje(detalleMensaje,hora,entragado,esPrivado,esGrupal,esGeneral) values (@Mensaje, '" + DateTime.Now.Date + "',null,null,null,null);Select @@identity";
+                comando = new SqlCommand(query, conexion,transaccion);
+                comando.Parameters.Clear();
+                comando.Parameters.AddWithValue("@Mensaje", mensaje);
+                int idMensaje = Convert.ToInt32(comando.ExecuteScalar());
+
+                string query2 = "INSERT INTO mensaje_x_usuario(idUsuario,idMensaje) values (@idUsuarioOrigen, @idMensaje)";
+                comando = new SqlCommand(query2, conexion,transaccion);
+                comando.Parameters.Clear();
+                comando.Parameters.AddWithValue("@idUsuarioOrigen", idUsuarioOrigen);
+                comando.Parameters.AddWithValue("@idMensaje", idMensaje);
+                comando.ExecuteNonQuery();
+
+                string query3 = "INSERT INTO mensaje_x_usuario(idUsuario,idMensaje) values (@idUsuarioDestino, @idMensaje)";
+                comando = new SqlCommand(query3, conexion,transaccion);
+                comando.Parameters.Clear();
+                comando.Parameters.AddWithValue("@idUsuarioDestino", idUsuarioDestino);
+                comando.Parameters.AddWithValue("@idMensaje", idMensaje);
+                comando.ExecuteNonQuery();
+
+                transaccion.Commit();
+
+            }
+            catch (Exception e)
+            {
+                transaccion.Rollback();
+                throw e;
+            }
+            finally {
+                Desconectar();
+            }
         }
         #endregion
 

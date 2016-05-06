@@ -208,7 +208,6 @@ C:\Users\Gaston\Documents\GitHub\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat
 C:\Users\Gaston\Documents\GitHub\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Microsoft.Owin.Host.SystemWeb.xml
 C:\Users\Gaston\Documents\GitHub\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Microsoft.Owin.Security.xml
 C:\Users\Gaston\Documents\GitHub\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\Newtonsoft.Json.xml
-C:\Users\Gaston\Documents\GitHub\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\obj\Debug\SignalRPruebaChat.csprojResolveAssemblyReference.cache
 C:\Users\Gaston\Documents\GitHub\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\obj\Debug\SignalRPruebaChat.dll
 C:\Users\Gaston\Documents\GitHub\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\obj\Debug\SignalRPruebaChat.pdb
 C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\SignalRPruebaChat\bin\roslyn\csc.exe

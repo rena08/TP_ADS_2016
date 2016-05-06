@@ -25,6 +25,8 @@ namespace ServiceDataBase
         bool compararNombre(string nombreUsuario);
         [OperationContract]
         bool insertarUsuario(string nombreUsuario, string password);
+        [OperationContract]
+        void insertarMensaje(int idUsuarioOrigen, int idUsuarioDestino,string mensaje);
 
     }
 }

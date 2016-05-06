@@ -50,6 +50,12 @@ namespace SignalRPruebaChat.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/insertarUsuario", ReplyAction="http://tempuri.org/IService1/insertarUsuarioResponse")]
         System.Threading.Tasks.Task<bool> insertarUsuarioAsync(string nombreUsuario, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/insertarMensaje", ReplyAction="http://tempuri.org/IService1/insertarMensajeResponse")]
+        void insertarMensaje(int idUsuarioOrigen, int idUsuarioDestino, string mensaje);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/insertarMensaje", ReplyAction="http://tempuri.org/IService1/insertarMensajeResponse")]
+        System.Threading.Tasks.Task insertarMensajeAsync(int idUsuarioOrigen, int idUsuarioDestino, string mensaje);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -125,6 +131,14 @@ namespace SignalRPruebaChat.ServiceReference1 {
         
         public System.Threading.Tasks.Task<bool> insertarUsuarioAsync(string nombreUsuario, string password) {
             return base.Channel.insertarUsuarioAsync(nombreUsuario, password);
+        }
+        
+        public void insertarMensaje(int idUsuarioOrigen, int idUsuarioDestino, string mensaje) {
+            base.Channel.insertarMensaje(idUsuarioOrigen, idUsuarioDestino, mensaje);
+        }
+        
+        public System.Threading.Tasks.Task insertarMensajeAsync(int idUsuarioOrigen, int idUsuarioDestino, string mensaje) {
+            return base.Channel.insertarMensajeAsync(idUsuarioOrigen, idUsuarioDestino, mensaje);
         }
     }
 }

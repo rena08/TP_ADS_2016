@@ -31,14 +31,14 @@ namespace SignalRPruebaChat
                 usuario.ConexionID = Context.ConnectionId;
                 usuario.UserName = nombreUsuario;
                 usuario.Password = password;
-                usuario.IdUsuario = objServiceClientobjService.devolverIdUsuario(nombreUsuario,password);
+                usuario.IdUsuario = objServiceClientobjService.devolverIdUsuario(nombreUsuario, password);
                 listaUsuarios.Add(usuario);
 
                 //Se define que el usuario que entro se conectó
                 Clients.Caller.onConnected(Context.ConnectionId, nombreUsuario, listaUsuarios, listaMensajes);
-                
+
                 // Envio a todos los usuario que me conecté pero no ami!
-                Clients.AllExcept(Context.ConnectionId).onNewUserConnected(Context.ConnectionId, nombreUsuario,listaUsuarios);
+                Clients.AllExcept(Context.ConnectionId).onNewUserConnected(Context.ConnectionId, nombreUsuario, listaUsuarios);
 
             }
         }
@@ -49,21 +49,35 @@ namespace SignalRPruebaChat
 
             Usuario destino = listaUsuarios.FirstOrDefault(x => x.ConexionID == usuarioDestino);
             Usuario origen = listaUsuarios.FirstOrDefault(x => x.ConexionID == usuarioOrigen);
-            
+            int idUsuarioDestino = 0;
+            int idUsuarioOrigen = 0;
+            foreach (Usuario usuario in listaUsuarios)
+            {
+                if (usuarioDestino == usuario.ConexionID)
+                {
+                    idUsuarioDestino = usuario.IdUsuario;
+                }
+                if (usuarioOrigen == usuario.ConexionID)
+                {
+                    idUsuarioOrigen = usuario.IdUsuario;
+                }
+            }
 
             if (origen != null && destino != null)
             {
-                
-                    // Envio de mensaje al destino
-                    Clients.Client(usuarioDestino).sendPrivateMessage(usuarioOrigen, origen.UserName, mensaje);
 
-                    // send to caller user
-                    Clients.Caller.sendPrivateMessage(usuarioDestino, origen.UserName, mensaje);
+                // Envio de mensaje al destino
+                Clients.Client(usuarioDestino).sendPrivateMessage(usuarioOrigen, origen.UserName, mensaje);
+
+                // send to caller user
+                Clients.Caller.sendPrivateMessage(usuarioDestino, origen.UserName, mensaje);
+
+                objServiceClientobjService.insertarMensaje(idUsuarioOrigen, idUsuarioDestino, mensaje);
             }
         }
 
     }
 
-        #endregion
+    #endregion
 
-    }
+}
