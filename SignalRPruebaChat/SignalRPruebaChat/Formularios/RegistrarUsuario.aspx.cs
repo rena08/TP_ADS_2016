@@ -13,8 +13,9 @@ namespace SignalRPruebaChat
         protected void Page_Load(object sender, EventArgs e)
         {
 
-        } 
+        }
 
+        #region Alta usuario
         //Registrar un nuevo usuario  
         protected void btnLogin_Click(object sender, EventArgs e)
         {
@@ -42,5 +43,6 @@ namespace SignalRPruebaChat
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Error, usuario existente. Ingrese otro nombre de usuario')", true);
             }     
         }
+        #endregion
     }
 }
