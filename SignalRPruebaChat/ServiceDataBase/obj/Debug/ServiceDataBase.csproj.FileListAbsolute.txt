@@ -26,3 +26,4 @@ C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\
 C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\ServiceDataBase\obj\Debug\ServiceDataBase.dll
 C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\ServiceDataBase\obj\Debug\ServiceDataBase.pdb
 C:\Users\Matias\UTN\Arquitectura de Software\Chat\TP_ADS_2016\SignalRPruebaChat\ServiceDataBase\bin\ServiceDataBase.dll.config
+C:\Users\AgustinPC\Desktop\GitHub\TP_ADS_2016\SignalRPruebaChat\ServiceDataBase\obj\Debug\ServiceDataBase.csprojResolveAssemblyReference.cache
