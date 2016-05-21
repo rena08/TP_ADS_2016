@@ -19,7 +19,7 @@ namespace ServiceDataBase
         //Declaramos las variables comando y conexion
         private SqlCommand comando = new SqlCommand();
         private SqlConnection conexion = new SqlConnection();
-        private string connection_string = ConfigurationManager.ConnectionStrings["Chat"].ConnectionString;
+        private string connection_string = ConfigurationManager.ConnectionStrings["Chat2"].ConnectionString;
         private SqlTransaction transaccion;
         #endregion
 
@@ -48,7 +48,7 @@ namespace ServiceDataBase
             Conectar();
             int resultado = 0;
             string query = "SELECT 1 FROM usuario WHERE nombre=@nombre AND " +
-                "(HASHBYTES('SHA1', @password) = (SELECT pass FROM usuario WHERE nombre=@nombre))"; 
+                "(HASHBYTES('SHA2_512', @password) = (SELECT pass FROM usuario WHERE nombre=@nombre))"; 
             comando = new SqlCommand(query, conexion);
             comando.Parameters.Clear();
             comando.Parameters.AddWithValue("@nombre", nombre);
@@ -70,7 +70,7 @@ namespace ServiceDataBase
             Conectar();
             int resultado = 0;
             string query = "SELECT idUsuario FROM usuario WHERE nombre=@nombre AND " +
-                "(HASHBYTES('SHA1', @password) = (SELECT pass FROM usuario WHERE nombre=@nombre))";
+                "(HASHBYTES('SHA2_512', @password) = (SELECT pass FROM usuario WHERE nombre=@nombre))";
             comando = new SqlCommand(query, conexion);
             comando.Parameters.Clear();
             comando.Parameters.AddWithValue("@nombre", nombre);
@@ -109,7 +109,7 @@ namespace ServiceDataBase
         {
             Desconectar();
             Conectar();
-            string query = "INSERT INTO usuario (nombre, pass, logueado) values (@nombreUsuario, HASHBYTES ('SHA1', @password), 0)";
+            string query = "INSERT INTO usuario (nombre, pass, logueado) values (@nombreUsuario, HASHBYTES ('SHA2_512', @password), 0)";
             comando = new SqlCommand(query, conexion);
             comando.Parameters.Clear();
             comando.Parameters.AddWithValue("@nombreUsuario", nombreUsuario);
@@ -132,20 +132,20 @@ namespace ServiceDataBase
             comando.Transaction=transaccion;
             try
             {
-                string query = "INSERT INTO mensaje(detalleMensaje,hora,entragado,esPrivado,esGrupal,esGeneral) values (@Mensaje, '" + DateTime.Now.Date + "',null,null,null,null);Select @@identity";
+                string query = "INSERT INTO mensaje(detalleMensaje,hora,entregado,esPrivado,esGrupal,esGeneral) values ( HASHBYTES ('SHA2_512', @Mensaje), '" + DateTime.Now.Date + "',null,null,null,null);Select @@identity";
                 comando = new SqlCommand(query, conexion,transaccion);
                 comando.Parameters.Clear();
                 comando.Parameters.AddWithValue("@Mensaje", mensaje);
                 int idMensaje = Convert.ToInt32(comando.ExecuteScalar());
 
-                string query2 = "INSERT INTO mensaje_x_usuario(idUsuario,idMensaje) values (@idUsuarioOrigen, @idMensaje)";
+                string query2 = "INSERT INTO mesaje_x_usuario(idUsuario,idMensaje) values (@idUsuarioOrigen, @idMensaje)";
                 comando = new SqlCommand(query2, conexion,transaccion);
                 comando.Parameters.Clear();
                 comando.Parameters.AddWithValue("@idUsuarioOrigen", idUsuarioOrigen);
                 comando.Parameters.AddWithValue("@idMensaje", idMensaje);
                 comando.ExecuteNonQuery();
 
-                string query3 = "INSERT INTO mensaje_x_usuario(idUsuario,idMensaje) values (@idUsuarioDestino, @idMensaje)";
+                string query3 = "INSERT INTO mesaje_x_usuario(idUsuario,idMensaje) values (@idUsuarioDestino, @idMensaje)";
                 comando = new SqlCommand(query3, conexion,transaccion);
                 comando.Parameters.Clear();
                 comando.Parameters.AddWithValue("@idUsuarioDestino", idUsuarioDestino);
