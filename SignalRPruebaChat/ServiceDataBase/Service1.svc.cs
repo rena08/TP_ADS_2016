@@ -21,6 +21,14 @@ namespace ServiceDataBase
         private SqlConnection conexion = new SqlConnection();
         private string connection_string = ConfigurationManager.ConnectionStrings["Chat2"].ConnectionString;
         private SqlTransaction transaccion;
+        //Clave maestra que protege las claves privadas de los certificados
+        private string masterKey = "jli,gr4526+";
+        private string nombreCertificado = "CertificadoAES256";
+        private string nombreClaveSimetrica = "ClaveSimetricaAES256";
+        //Para generar el GUID de la clave 
+        private string identityValue = "Artin–Zorn";
+        //Para generar la clave actual
+        private string keySource = "hsgh45w6.p{|";
         #endregion
 
         #region Conexión BD
@@ -128,11 +136,14 @@ namespace ServiceDataBase
         {
             Desconectar();
             Conectar();
+            abrirClaveSimetrica();
             transaccion = conexion.BeginTransaction();
             comando.Transaction=transaccion;
             try
             {
-                string query = "INSERT INTO mensaje(detalleMensaje,hora,entregado,esPrivado,esGrupal,esGeneral) values ( HASHBYTES ('SHA2_512', @Mensaje), '" + DateTime.Now.Date + "',null,null,null,null);Select @@identity";
+                string query = "INSERT INTO mensaje(hora,entregado,esPrivado,esGrupal,esGeneral,detalleMensaje) values " +
+                               "(getdate(), null, null, null, null,(EncryptByKey(Key_GUID('ClaveSimetricaAES256'), @Mensaje)));" +
+                               "Select @@identity";
                 comando = new SqlCommand(query, conexion,transaccion);
                 comando.Parameters.Clear();
                 comando.Parameters.AddWithValue("@Mensaje", mensaje);
@@ -163,6 +174,24 @@ namespace ServiceDataBase
             finally {
                 Desconectar();
             }
+        }
+        #endregion
+
+        #region
+        //Abrir la clave simétrica para cifrar los datos
+        private bool abrirClaveSimetrica()
+        {
+            Desconectar();
+            Conectar();
+            string query = "OPEN SYMMETRIC KEY ClaveSimetricaAES256 " +
+                "DECRYPTION BY CERTIFICATE CertificadoAES256";
+            comando = new SqlCommand(query, conexion);
+            int resultado = comando.ExecuteNonQuery();
+            if (resultado == 1)
+            {
+                return true;
+            }
+            return false;
         }
         #endregion
 
